@@ -1,0 +1,798 @@
+None
+host: g-h-1-8-01
+Building DAG of jobs...
+You are running snakemake in a SLURM job context. This is not recommended, as it may lead to unexpected behavior. Please run Snakemake directly on the login node.
+SLURM run ID: bc0a748b-c5de-4dc1-a980-64fea76f913a
+Using shell: /usr/bin/bash
+Provided remote nodes: 86
+Job stats:
+job               count
+--------------  -------
+STAR_paired          86
+STAR_paired_XX       37
+STAR_paired_XY       49
+all                   1
+raw_fastqc           86
+trim_bbduk           86
+trim_fastqc          86
+total               431
+
+Select jobs to execute...
+Execute 86 jobs...
+[Wed Oct  8 14:52:45 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-71_317_260_S106_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-71_317_260_S106_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_71_fq1_fastqc.zip, ../../rawQC/Brain_control_M_71_fq1_fastqc.html, ../../rawQC/Brain_control_M_71_fq2_fastqc.zip, ../../rawQC/Brain_control_M_71_fq2_fastqc.html
+    jobid: 68
+    reason: Missing output files: ../../rawQC/Brain_control_M_71_fq1_fastqc.html, ../../rawQC/Brain_control_M_71_fq2_fastqc.html
+    wildcards: sample=Brain_control_M_71
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6336, disk_mib=6043, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+No SLURM account given, trying to guess.
+Unable to guess SLURM account. Trying to proceed without.
+Job 68 has been submitted with SLURM jobid 26430152 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_71/26430152.log).
+[Wed Oct  8 14:52:45 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-14_371_206_S55_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-14_371_206_S55_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_sepsis_F_14_fq1_fastqc.zip, ../../rawQC/Kidney_sepsis_F_14_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_F_14_fq2_fastqc.zip, ../../rawQC/Kidney_sepsis_F_14_fq2_fastqc.html
+    jobid: 12
+    reason: Missing output files: ../../rawQC/Kidney_sepsis_F_14_fq2_fastqc.html, ../../rawQC/Kidney_sepsis_F_14_fq1_fastqc.html
+    wildcards: sample=Kidney_sepsis_F_14
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6166, disk_mib=5881, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 12 has been submitted with SLURM jobid 26430153 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_sepsis_F_14/26430153.log).
+[Wed Oct  8 14:52:45 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-41_368_209_S78_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-41_368_209_S78_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_F_41_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_41_trimmed_R2.fastq.gz
+    jobid: 124
+    reason: Missing output files: ../../trimmedReads/Brain_control_F_41_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_control_F_41_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_control_F_41
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8976, disk_mib=8561, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 124 has been submitted with SLURM jobid 26430154 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_F_41/26430154.log).
+[Wed Oct  8 14:52:45 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-43_344_233_S80_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-43_344_233_S80_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_F_43_fq1_fastqc.zip, ../../rawQC/Brain_control_F_43_fq1_fastqc.html, ../../rawQC/Brain_control_F_43_fq2_fastqc.zip, ../../rawQC/Brain_control_F_43_fq2_fastqc.html
+    jobid: 40
+    reason: Missing output files: ../../rawQC/Brain_control_F_43_fq1_fastqc.html, ../../rawQC/Brain_control_F_43_fq2_fastqc.html
+    wildcards: sample=Brain_control_F_43
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7694, disk_mib=7338, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 40 has been submitted with SLURM jobid 26430155 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_F_43/26430155.log).
+[Wed Oct  8 14:52:46 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-11_300_277_S53_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-11_300_277_S53_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_M_11_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_11_trimmed_R2.fastq.gz
+    jobid: 96
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_M_11_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_sepsis_M_11_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_sepsis_M_11
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7616, disk_mib=7264, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 96 has been submitted with SLURM jobid 26430156 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_M_11/26430156.log).
+[Wed Oct  8 14:52:46 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-69_329_248_S105_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-69_329_248_S105_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_F_69_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_69_trimmed_R2.fastq.gz
+    jobid: 152
+    reason: Missing output files: ../../trimmedReads/Brain_control_F_69_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_69_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_F_69
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8069, disk_mib=7696, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 152 has been submitted with SLURM jobid 26430157 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_F_69/26430157.log).
+[Wed Oct  8 14:52:46 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-15_359_218_S56_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-15_359_218_S56_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_M_15_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_M_15_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_15_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_M_15_fq2_fastqc.html
+    jobid: 13
+    reason: Missing output files: ../../rawQC/Brain_sepsis_M_15_fq2_fastqc.html, ../../rawQC/Brain_sepsis_M_15_fq1_fastqc.html
+    wildcards: sample=Brain_sepsis_M_15
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=8460, disk_mib=8069, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 13 has been submitted with SLURM jobid 26430158 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_M_15/26430158.log).
+[Wed Oct  8 14:52:46 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-18_335_242_S58_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-18_335_242_S58_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_sepsis_F_18_fq1_fastqc.zip, ../../rawQC/Kidney_sepsis_F_18_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_F_18_fq2_fastqc.zip, ../../rawQC/Kidney_sepsis_F_18_fq2_fastqc.html
+    jobid: 15
+    reason: Missing output files: ../../rawQC/Kidney_sepsis_F_18_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_F_18_fq2_fastqc.html
+    wildcards: sample=Kidney_sepsis_F_18
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=5605, disk_mib=5346, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 15 has been submitted with SLURM jobid 26430159 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_sepsis_F_18/26430159.log).
+[Wed Oct  8 14:52:46 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-44_332_245_S81_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-44_332_245_S81_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_control_F_44_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_F_44_trimmed_R2.fastq.gz
+    jobid: 127
+    reason: Missing output files: ../../trimmedReads/Kidney_control_F_44_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_F_44_trimmed_R2.fastq.gz
+    wildcards: sample=Kidney_control_F_44
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6759, disk_mib=6446, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 127 has been submitted with SLURM jobid 26430160 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_control_F_44/26430160.log).
+[Wed Oct  8 14:52:46 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-77_376_201_S109_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-77_376_201_S109_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_F_77_fq1_fastqc.zip, ../../rawQC/Brain_control_F_77_fq1_fastqc.html, ../../rawQC/Brain_control_F_77_fq2_fastqc.zip, ../../rawQC/Brain_control_F_77_fq2_fastqc.html
+    jobid: 71
+    reason: Missing output files: ../../rawQC/Brain_control_F_77_fq1_fastqc.html, ../../rawQC/Brain_control_F_77_fq2_fastqc.html
+    wildcards: sample=Brain_control_F_77
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6700, disk_mib=6390, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 71 has been submitted with SLURM jobid 26430161 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_F_77/26430161.log).
+[Wed Oct  8 14:52:46 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-15_359_218_S56_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-15_359_218_S56_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_M_15_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_15_trimmed_R2.fastq.gz
+    jobid: 99
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_M_15_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_15_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_sepsis_M_15
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8460, disk_mib=8069, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 99 has been submitted with SLURM jobid 26430162 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_M_15/26430162.log).
+[Wed Oct  8 14:52:47 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-46_308_269_S83_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-46_308_269_S83_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_control_M_46_fq1_fastqc.zip, ../../rawQC/Kidney_control_M_46_fq1_fastqc.html, ../../rawQC/Kidney_control_M_46_fq2_fastqc.zip, ../../rawQC/Kidney_control_M_46_fq2_fastqc.html
+    jobid: 43
+    reason: Missing output files: ../../rawQC/Kidney_control_M_46_fq2_fastqc.html, ../../rawQC/Kidney_control_M_46_fq1_fastqc.html
+    wildcards: sample=Kidney_control_M_46
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=5976, disk_mib=5700, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 43 has been submitted with SLURM jobid 26430163 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_control_M_46/26430163.log).
+[Wed Oct  8 14:52:47 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-73_305_272_S107_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-73_305_272_S107_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_73_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_73_trimmed_R2.fastq.gz
+    jobid: 155
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_73_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_control_M_73_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_control_M_73
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6257, disk_mib=5968, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 155 has been submitted with SLURM jobid 26430164 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_73/26430164.log).
+[Wed Oct  8 14:52:47 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-19_323_254_S59_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-19_323_254_S59_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_M_19_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_M_19_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_19_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_M_19_fq2_fastqc.html
+    jobid: 16
+    reason: Missing output files: ../../rawQC/Brain_sepsis_M_19_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_19_fq2_fastqc.html
+    wildcards: sample=Brain_sepsis_M_19
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6886, disk_mib=6568, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 16 has been submitted with SLURM jobid 26430165 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_M_19/26430165.log).
+[Wed Oct  8 14:52:47 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-45_320_257_S82_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-45_320_257_S82_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_45_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_45_trimmed_R2.fastq.gz
+    jobid: 128
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_45_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_45_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_M_45
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=9433, disk_mib=8997, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 128 has been submitted with SLURM jobid 26430166 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_45/26430166.log).
+[Wed Oct  8 14:52:47 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-79_364_213_S110_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-79_364_213_S110_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_F_79_fq1_fastqc.zip, ../../rawQC/Brain_control_F_79_fq1_fastqc.html, ../../rawQC/Brain_control_F_79_fq2_fastqc.zip, ../../rawQC/Brain_control_F_79_fq2_fastqc.html
+    jobid: 72
+    reason: Missing output files: ../../rawQC/Brain_control_F_79_fq2_fastqc.html, ../../rawQC/Brain_control_F_79_fq1_fastqc.html
+    wildcards: sample=Brain_control_F_79
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7462, disk_mib=7117, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 72 has been submitted with SLURM jobid 26430167 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_F_79/26430167.log).
+[Wed Oct  8 14:52:47 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-75_293_284_S108_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-75_293_284_S108_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_F_75_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_75_trimmed_R2.fastq.gz
+    jobid: 156
+    reason: Missing output files: ../../trimmedReads/Brain_control_F_75_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_75_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_F_75
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7170, disk_mib=6838, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 156 has been submitted with SLURM jobid 26430168 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_F_75/26430168.log).
+[Wed Oct  8 14:52:47 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-47_296_281_S84_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-47_296_281_S84_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_47_fq1_fastqc.zip, ../../rawQC/Brain_control_M_47_fq1_fastqc.html, ../../rawQC/Brain_control_M_47_fq2_fastqc.zip, ../../rawQC/Brain_control_M_47_fq2_fastqc.html
+    jobid: 44
+    reason: Missing output files: ../../rawQC/Brain_control_M_47_fq2_fastqc.html, ../../rawQC/Brain_control_M_47_fq1_fastqc.html
+    wildcards: sample=Brain_control_M_47
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=5283, disk_mib=5039, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 44 has been submitted with SLURM jobid 26430169 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_47/26430169.log).
+[Wed Oct  8 14:52:48 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-17_347_230_S57_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-17_347_230_S57_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_F_17_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_F_17_trimmed_R2.fastq.gz
+    jobid: 100
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_F_17_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_F_17_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_sepsis_F_17
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6063, disk_mib=5783, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 100 has been submitted with SLURM jobid 26430170 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_F_17/26430170.log).
+[Wed Oct  8 14:52:48 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-21_311_266_S60_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-21_311_266_S60_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_M_21_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_M_21_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_21_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_M_21_fq2_fastqc.html
+    jobid: 17
+    reason: Missing output files: ../../rawQC/Brain_sepsis_M_21_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_21_fq2_fastqc.html
+    wildcards: sample=Brain_sepsis_M_21
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6976, disk_mib=6653, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 17 has been submitted with SLURM jobid 26430171 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_M_21/26430171.log).
+[Wed Oct  8 14:52:48 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-46_308_269_S83_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-46_308_269_S83_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_control_M_46_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_M_46_trimmed_R2.fastq.gz
+    jobid: 129
+    reason: Missing output files: ../../trimmedReads/Kidney_control_M_46_trimmed_R2.fastq.gz, ../../trimmedReads/Kidney_control_M_46_trimmed_R1.fastq.gz
+    wildcards: sample=Kidney_control_M_46
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=5976, disk_mib=5700, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 129 has been submitted with SLURM jobid 26430172 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_control_M_46/26430172.log).
+[Wed Oct  8 14:52:48 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-81_352_225_S111_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-81_352_225_S111_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_F_81_fq1_fastqc.zip, ../../rawQC/Brain_control_F_81_fq1_fastqc.html, ../../rawQC/Brain_control_F_81_fq2_fastqc.zip, ../../rawQC/Brain_control_F_81_fq2_fastqc.html
+    jobid: 73
+    reason: Missing output files: ../../rawQC/Brain_control_F_81_fq2_fastqc.html, ../../rawQC/Brain_control_F_81_fq1_fastqc.html
+    wildcards: sample=Brain_control_F_81
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=9570, disk_mib=9127, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 73 has been submitted with SLURM jobid 26430173 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_F_81/26430173.log).
+[Wed Oct  8 14:52:48 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-18_335_242_S58_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-18_335_242_S58_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_sepsis_F_18_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_sepsis_F_18_trimmed_R2.fastq.gz
+    jobid: 101
+    reason: Missing output files: ../../trimmedReads/Kidney_sepsis_F_18_trimmed_R2.fastq.gz, ../../trimmedReads/Kidney_sepsis_F_18_trimmed_R1.fastq.gz
+    wildcards: sample=Kidney_sepsis_F_18
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=5605, disk_mib=5346, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 101 has been submitted with SLURM jobid 26430174 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_sepsis_F_18/26430174.log).
+[Wed Oct  8 14:52:48 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-48_379_198_S85_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-48_379_198_S85_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_control_M_48_fq1_fastqc.zip, ../../rawQC/Kidney_control_M_48_fq1_fastqc.html, ../../rawQC/Kidney_control_M_48_fq2_fastqc.zip, ../../rawQC/Kidney_control_M_48_fq2_fastqc.html
+    jobid: 45
+    reason: Missing output files: ../../rawQC/Kidney_control_M_48_fq2_fastqc.html, ../../rawQC/Kidney_control_M_48_fq1_fastqc.html
+    wildcards: sample=Kidney_control_M_48
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6128, disk_mib=5845, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 45 has been submitted with SLURM jobid 26430175 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_control_M_48/26430175.log).
+[Wed Oct  8 14:52:48 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-77_376_201_S109_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-77_376_201_S109_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_F_77_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_77_trimmed_R2.fastq.gz
+    jobid: 157
+    reason: Missing output files: ../../trimmedReads/Brain_control_F_77_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_77_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_F_77
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6700, disk_mib=6390, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 157 has been submitted with SLURM jobid 26430176 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_F_77/26430176.log).
+[Wed Oct  8 14:52:49 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-22_299_278_S61_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-22_299_278_S61_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_sepsis_M_22_fq1_fastqc.zip, ../../rawQC/Kidney_sepsis_M_22_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_M_22_fq2_fastqc.zip, ../../rawQC/Kidney_sepsis_M_22_fq2_fastqc.html
+    jobid: 18
+    reason: Missing output files: ../../rawQC/Kidney_sepsis_M_22_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_M_22_fq2_fastqc.html
+    wildcards: sample=Kidney_sepsis_M_22
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7377, disk_mib=7036, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 18 has been submitted with SLURM jobid 26430177 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_sepsis_M_22/26430177.log).
+[Wed Oct  8 14:52:49 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-47_296_281_S84_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-47_296_281_S84_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_47_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_47_trimmed_R2.fastq.gz
+    jobid: 130
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_47_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_47_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_M_47
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=5283, disk_mib=5039, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 130 has been submitted with SLURM jobid 26430178 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_47/26430178.log).
+[Wed Oct  8 14:52:49 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-83_340_237_S112_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-83_340_237_S112_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_83_fq1_fastqc.zip, ../../rawQC/Brain_control_M_83_fq1_fastqc.html, ../../rawQC/Brain_control_M_83_fq2_fastqc.zip, ../../rawQC/Brain_control_M_83_fq2_fastqc.html
+    jobid: 74
+    reason: Missing output files: ../../rawQC/Brain_control_M_83_fq2_fastqc.html, ../../rawQC/Brain_control_M_83_fq1_fastqc.html
+    wildcards: sample=Brain_control_M_83
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=9866, disk_mib=9409, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 74 has been submitted with SLURM jobid 26430179 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_83/26430179.log).
+[Wed Oct  8 14:52:49 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-19_323_254_S59_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-19_323_254_S59_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_M_19_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_19_trimmed_R2.fastq.gz
+    jobid: 102
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_M_19_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_sepsis_M_19_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_sepsis_M_19
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6886, disk_mib=6568, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 102 has been submitted with SLURM jobid 26430180 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_M_19/26430180.log).
+[Wed Oct  8 14:52:49 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-49_367_210_S86_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-49_367_210_S86_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_F_49_fq1_fastqc.zip, ../../rawQC/Brain_control_F_49_fq1_fastqc.html, ../../rawQC/Brain_control_F_49_fq2_fastqc.zip, ../../rawQC/Brain_control_F_49_fq2_fastqc.html
+    jobid: 46
+    reason: Missing output files: ../../rawQC/Brain_control_F_49_fq2_fastqc.html, ../../rawQC/Brain_control_F_49_fq1_fastqc.html
+    wildcards: sample=Brain_control_F_49
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7302, disk_mib=6964, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 46 has been submitted with SLURM jobid 26430181 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_F_49/26430181.log).
+[Wed Oct  8 14:52:49 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-79_364_213_S110_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-79_364_213_S110_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_F_79_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_79_trimmed_R2.fastq.gz
+    jobid: 158
+    reason: Missing output files: ../../trimmedReads/Brain_control_F_79_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_control_F_79_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_control_F_79
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7462, disk_mib=7117, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 158 has been submitted with SLURM jobid 26430182 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_F_79/26430182.log).
+[Wed Oct  8 14:52:49 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-23_382_195_S62_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-23_382_195_S62_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_M_23_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_M_23_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_23_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_M_23_fq2_fastqc.html
+    jobid: 19
+    reason: Missing output files: ../../rawQC/Brain_sepsis_M_23_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_23_fq2_fastqc.html
+    wildcards: sample=Brain_sepsis_M_23
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=5975, disk_mib=5699, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 19 has been submitted with SLURM jobid 26430183 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_M_23/26430183.log).
+[Wed Oct  8 14:52:50 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-48_379_198_S85_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-48_379_198_S85_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_control_M_48_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_M_48_trimmed_R2.fastq.gz
+    jobid: 131
+    reason: Missing output files: ../../trimmedReads/Kidney_control_M_48_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_M_48_trimmed_R2.fastq.gz
+    wildcards: sample=Kidney_control_M_48
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6128, disk_mib=5845, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 131 has been submitted with SLURM jobid 26430184 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_control_M_48/26430184.log).
+[Wed Oct  8 14:52:50 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-85_328_249_S113_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-85_328_249_S113_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_85_fq1_fastqc.zip, ../../rawQC/Brain_control_M_85_fq1_fastqc.html, ../../rawQC/Brain_control_M_85_fq2_fastqc.zip, ../../rawQC/Brain_control_M_85_fq2_fastqc.html
+    jobid: 75
+    reason: Missing output files: ../../rawQC/Brain_control_M_85_fq1_fastqc.html, ../../rawQC/Brain_control_M_85_fq2_fastqc.html
+    wildcards: sample=Brain_control_M_85
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7406, disk_mib=7063, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 75 has been submitted with SLURM jobid 26430185 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_85/26430185.log).
+[Wed Oct  8 14:52:50 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-21_311_266_S60_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-21_311_266_S60_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_M_21_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_21_trimmed_R2.fastq.gz
+    jobid: 103
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_M_21_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_21_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_sepsis_M_21
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6976, disk_mib=6653, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 103 has been submitted with SLURM jobid 26430186 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_M_21/26430186.log).
+[Wed Oct  8 14:52:50 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-5_348_229_S49_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-5_348_229_S49_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_F_5_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_F_5_fq1_fastqc.html, ../../rawQC/Brain_sepsis_F_5_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_F_5_fq2_fastqc.html
+    jobid: 47
+    reason: Missing output files: ../../rawQC/Brain_sepsis_F_5_fq1_fastqc.html, ../../rawQC/Brain_sepsis_F_5_fq2_fastqc.html
+    wildcards: sample=Brain_sepsis_F_5
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6259, disk_mib=5970, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 47 has been submitted with SLURM jobid 26430187 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_F_5/26430187.log).
+[Wed Oct  8 14:52:50 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-81_352_225_S111_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-81_352_225_S111_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_F_81_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_81_trimmed_R2.fastq.gz
+    jobid: 159
+    reason: Missing output files: ../../trimmedReads/Brain_control_F_81_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_control_F_81_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_control_F_81
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=9570, disk_mib=9127, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 159 has been submitted with SLURM jobid 26430188 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_F_81/26430188.log).
+[Wed Oct  8 14:52:50 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-24_370_207_S63_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-24_370_207_S63_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_sepsis_M_24_fq1_fastqc.zip, ../../rawQC/Kidney_sepsis_M_24_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_M_24_fq2_fastqc.zip, ../../rawQC/Kidney_sepsis_M_24_fq2_fastqc.html
+    jobid: 20
+    reason: Missing output files: ../../rawQC/Kidney_sepsis_M_24_fq2_fastqc.html, ../../rawQC/Kidney_sepsis_M_24_fq1_fastqc.html
+    wildcards: sample=Kidney_sepsis_M_24
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=8125, disk_mib=7749, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 20 has been submitted with SLURM jobid 26430189 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_sepsis_M_24/26430189.log).
+[Wed Oct  8 14:52:51 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-49_367_210_S86_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-49_367_210_S86_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_F_49_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_F_49_trimmed_R2.fastq.gz
+    jobid: 132
+    reason: Missing output files: ../../trimmedReads/Brain_control_F_49_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_control_F_49_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_control_F_49
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7302, disk_mib=6964, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 132 has been submitted with SLURM jobid 26430190 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_F_49/26430190.log).
+[Wed Oct  8 14:52:51 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-87_316_261_S114_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-87_316_261_S114_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_87_fq1_fastqc.zip, ../../rawQC/Brain_control_M_87_fq1_fastqc.html, ../../rawQC/Brain_control_M_87_fq2_fastqc.zip, ../../rawQC/Brain_control_M_87_fq2_fastqc.html
+    jobid: 76
+    reason: Missing output files: ../../rawQC/Brain_control_M_87_fq1_fastqc.html, ../../rawQC/Brain_control_M_87_fq2_fastqc.html
+    wildcards: sample=Brain_control_M_87
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=8777, disk_mib=8371, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 76 has been submitted with SLURM jobid 26430191 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_87/26430191.log).
+[Wed Oct  8 14:52:51 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-22_299_278_S61_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-22_299_278_S61_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_sepsis_M_22_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_sepsis_M_22_trimmed_R2.fastq.gz
+    jobid: 104
+    reason: Missing output files: ../../trimmedReads/Kidney_sepsis_M_22_trimmed_R2.fastq.gz, ../../trimmedReads/Kidney_sepsis_M_22_trimmed_R1.fastq.gz
+    wildcards: sample=Kidney_sepsis_M_22
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7377, disk_mib=7036, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 104 has been submitted with SLURM jobid 26430192 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_sepsis_M_22/26430192.log).
+[Wed Oct  8 14:52:51 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-50_355_222_S87_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-50_355_222_S87_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_control_F_50_fq1_fastqc.zip, ../../rawQC/Kidney_control_F_50_fq1_fastqc.html, ../../rawQC/Kidney_control_F_50_fq2_fastqc.zip, ../../rawQC/Kidney_control_F_50_fq2_fastqc.html
+    jobid: 48
+    reason: Missing output files: ../../rawQC/Kidney_control_F_50_fq2_fastqc.html, ../../rawQC/Kidney_control_F_50_fq1_fastqc.html
+    wildcards: sample=Kidney_control_F_50
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=8504, disk_mib=8111, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 48 has been submitted with SLURM jobid 26430193 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_control_F_50/26430193.log).
+[Wed Oct  8 14:52:51 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-83_340_237_S112_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-83_340_237_S112_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_83_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_83_trimmed_R2.fastq.gz
+    jobid: 160
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_83_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_control_M_83_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_control_M_83
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=9866, disk_mib=9409, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 160 has been submitted with SLURM jobid 26430194 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_83/26430194.log).
+[Wed Oct  8 14:52:51 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-25_358_219_S64_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-25_358_219_S64_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_M_25_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_M_25_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_25_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_M_25_fq2_fastqc.html
+    jobid: 21
+    reason: Missing output files: ../../rawQC/Brain_sepsis_M_25_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_25_fq2_fastqc.html
+    wildcards: sample=Brain_sepsis_M_25
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7805, disk_mib=7444, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 21 has been submitted with SLURM jobid 26430195 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_M_25/26430195.log).
+[Wed Oct  8 14:52:52 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-5_348_229_S49_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-5_348_229_S49_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_F_5_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_F_5_trimmed_R2.fastq.gz
+    jobid: 133
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_F_5_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_F_5_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_sepsis_F_5
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6259, disk_mib=5970, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 133 has been submitted with SLURM jobid 26430196 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_F_5/26430196.log).
+[Wed Oct  8 14:52:52 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-89_304_273_S115_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-89_304_273_S115_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_89_fq1_fastqc.zip, ../../rawQC/Brain_control_M_89_fq1_fastqc.html, ../../rawQC/Brain_control_M_89_fq2_fastqc.zip, ../../rawQC/Brain_control_M_89_fq2_fastqc.html
+    jobid: 77
+    reason: Missing output files: ../../rawQC/Brain_control_M_89_fq2_fastqc.html, ../../rawQC/Brain_control_M_89_fq1_fastqc.html
+    wildcards: sample=Brain_control_M_89
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7579, disk_mib=7228, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 77 has been submitted with SLURM jobid 26430197 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_89/26430197.log).
+[Wed Oct  8 14:52:52 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-23_382_195_S62_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-23_382_195_S62_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_M_23_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_23_trimmed_R2.fastq.gz
+    jobid: 105
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_M_23_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_23_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_sepsis_M_23
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=5975, disk_mib=5699, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 105 has been submitted with SLURM jobid 26430198 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_M_23/26430198.log).
+[Wed Oct  8 14:52:52 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-51_343_234_S88_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-51_343_234_S88_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_51_fq1_fastqc.zip, ../../rawQC/Brain_control_M_51_fq1_fastqc.html, ../../rawQC/Brain_control_M_51_fq2_fastqc.zip, ../../rawQC/Brain_control_M_51_fq2_fastqc.html
+    jobid: 49
+    reason: Missing output files: ../../rawQC/Brain_control_M_51_fq2_fastqc.html, ../../rawQC/Brain_control_M_51_fq1_fastqc.html
+    wildcards: sample=Brain_control_M_51
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=8125, disk_mib=7749, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 49 has been submitted with SLURM jobid 26430199 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_51/26430199.log).
+[Wed Oct  8 14:52:52 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-85_328_249_S113_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-85_328_249_S113_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_85_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_85_trimmed_R2.fastq.gz
+    jobid: 161
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_85_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_85_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_M_85
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7406, disk_mib=7063, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 161 has been submitted with SLURM jobid 26430200 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_85/26430200.log).
+[Wed Oct  8 14:52:52 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-26_346_231_S65_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-26_346_231_S65_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_sepsis_M_26_fq1_fastqc.zip, ../../rawQC/Kidney_sepsis_M_26_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_M_26_fq2_fastqc.zip, ../../rawQC/Kidney_sepsis_M_26_fq2_fastqc.html
+    jobid: 22
+    reason: Missing output files: ../../rawQC/Kidney_sepsis_M_26_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_M_26_fq2_fastqc.html
+    wildcards: sample=Kidney_sepsis_M_26
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6496, disk_mib=6196, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 22 has been submitted with SLURM jobid 26430201 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_sepsis_M_26/26430201.log).
+[Wed Oct  8 14:52:52 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-50_355_222_S87_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-50_355_222_S87_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_control_F_50_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_F_50_trimmed_R2.fastq.gz
+    jobid: 134
+    reason: Missing output files: ../../trimmedReads/Kidney_control_F_50_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_F_50_trimmed_R2.fastq.gz
+    wildcards: sample=Kidney_control_F_50
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8504, disk_mib=8111, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 134 has been submitted with SLURM jobid 26430202 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_control_F_50/26430202.log).
+[Wed Oct  8 14:52:53 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-9_324_253_S51_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-9_324_253_S51_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_F_9_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_F_9_fq1_fastqc.html, ../../rawQC/Brain_sepsis_F_9_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_F_9_fq2_fastqc.html
+    jobid: 78
+    reason: Missing output files: ../../rawQC/Brain_sepsis_F_9_fq2_fastqc.html, ../../rawQC/Brain_sepsis_F_9_fq1_fastqc.html
+    wildcards: sample=Brain_sepsis_F_9
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6481, disk_mib=6181, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 78 has been submitted with SLURM jobid 26430203 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_F_9/26430203.log).
+[Wed Oct  8 14:52:53 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-24_370_207_S63_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-24_370_207_S63_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_sepsis_M_24_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_sepsis_M_24_trimmed_R2.fastq.gz
+    jobid: 106
+    reason: Missing output files: ../../trimmedReads/Kidney_sepsis_M_24_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_sepsis_M_24_trimmed_R2.fastq.gz
+    wildcards: sample=Kidney_sepsis_M_24
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8125, disk_mib=7749, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 106 has been submitted with SLURM jobid 26430204 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_sepsis_M_24/26430204.log).
+[Wed Oct  8 14:52:53 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-52_331_246_S89_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-52_331_246_S89_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_control_M_52_fq1_fastqc.zip, ../../rawQC/Kidney_control_M_52_fq1_fastqc.html, ../../rawQC/Kidney_control_M_52_fq2_fastqc.zip, ../../rawQC/Kidney_control_M_52_fq2_fastqc.html
+    jobid: 50
+    reason: Missing output files: ../../rawQC/Kidney_control_M_52_fq1_fastqc.html, ../../rawQC/Kidney_control_M_52_fq2_fastqc.html
+    wildcards: sample=Kidney_control_M_52
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=9272, disk_mib=8843, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 50 has been submitted with SLURM jobid 26430205 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_control_M_52/26430205.log).
+[Wed Oct  8 14:52:53 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-87_316_261_S114_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-87_316_261_S114_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_87_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_87_trimmed_R2.fastq.gz
+    jobid: 162
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_87_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_87_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_M_87
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8777, disk_mib=8371, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 162 has been submitted with SLURM jobid 26430206 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_87/26430206.log).
+[Wed Oct  8 14:52:53 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-27_334_243_S66_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-27_334_243_S66_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_M_27_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_M_27_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_27_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_M_27_fq2_fastqc.html
+    jobid: 23
+    reason: Missing output files: ../../rawQC/Brain_sepsis_M_27_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_27_fq2_fastqc.html
+    wildcards: sample=Brain_sepsis_M_27
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7687, disk_mib=7331, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 23 has been submitted with SLURM jobid 26430207 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_M_27/26430207.log).
+[Wed Oct  8 14:52:53 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-51_343_234_S88_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-51_343_234_S88_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_51_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_51_trimmed_R2.fastq.gz
+    jobid: 135
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_51_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_control_M_51_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_control_M_51
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8125, disk_mib=7749, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 135 has been submitted with SLURM jobid 26430208 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_51/26430208.log).
+[Wed Oct  8 14:52:54 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-91_292_285_S116_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-91_292_285_S116_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_91_fq1_fastqc.zip, ../../rawQC/Brain_control_M_91_fq1_fastqc.html, ../../rawQC/Brain_control_M_91_fq2_fastqc.zip, ../../rawQC/Brain_control_M_91_fq2_fastqc.html
+    jobid: 79
+    reason: Missing output files: ../../rawQC/Brain_control_M_91_fq1_fastqc.html, ../../rawQC/Brain_control_M_91_fq2_fastqc.html
+    wildcards: sample=Brain_control_M_91
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7259, disk_mib=6923, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 79 has been submitted with SLURM jobid 26430209 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_91/26430209.log).
+[Wed Oct  8 14:52:54 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-25_358_219_S64_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-25_358_219_S64_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_M_25_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_25_trimmed_R2.fastq.gz
+    jobid: 107
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_M_25_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_sepsis_M_25_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_sepsis_M_25
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7805, disk_mib=7444, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 107 has been submitted with SLURM jobid 26430210 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_M_25/26430210.log).
+[Wed Oct  8 14:52:54 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-53_319_258_S90_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-53_319_258_S90_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_53_fq1_fastqc.zip, ../../rawQC/Brain_control_M_53_fq1_fastqc.html, ../../rawQC/Brain_control_M_53_fq2_fastqc.zip, ../../rawQC/Brain_control_M_53_fq2_fastqc.html
+    jobid: 51
+    reason: Missing output files: ../../rawQC/Brain_control_M_53_fq1_fastqc.html, ../../rawQC/Brain_control_M_53_fq2_fastqc.html
+    wildcards: sample=Brain_control_M_53
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=8311, disk_mib=7926, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 51 has been submitted with SLURM jobid 26430211 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_53/26430211.log).
+[Wed Oct  8 14:52:54 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-89_304_273_S115_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-89_304_273_S115_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_89_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_89_trimmed_R2.fastq.gz
+    jobid: 163
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_89_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_89_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_M_89
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7579, disk_mib=7228, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 163 has been submitted with SLURM jobid 26430212 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_89/26430212.log).
+[Wed Oct  8 14:52:54 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-28_322_255_S67_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-28_322_255_S67_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_sepsis_M_28_fq1_fastqc.zip, ../../rawQC/Kidney_sepsis_M_28_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_M_28_fq2_fastqc.zip, ../../rawQC/Kidney_sepsis_M_28_fq2_fastqc.html
+    jobid: 24
+    reason: Missing output files: ../../rawQC/Kidney_sepsis_M_28_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_M_28_fq2_fastqc.html
+    wildcards: sample=Kidney_sepsis_M_28
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7855, disk_mib=7492, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 24 has been submitted with SLURM jobid 26430213 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_sepsis_M_28/26430213.log).
+[Wed Oct  8 14:52:55 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-52_331_246_S89_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-52_331_246_S89_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_control_M_52_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_M_52_trimmed_R2.fastq.gz
+    jobid: 136
+    reason: Missing output files: ../../trimmedReads/Kidney_control_M_52_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_M_52_trimmed_R2.fastq.gz
+    wildcards: sample=Kidney_control_M_52
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=9272, disk_mib=8843, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 136 has been submitted with SLURM jobid 26430214 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_control_M_52/26430214.log).
+[Wed Oct  8 14:52:55 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-92_375_202_S117_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-92_375_202_S117_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_control_M_92_fq1_fastqc.zip, ../../rawQC/Kidney_control_M_92_fq1_fastqc.html, ../../rawQC/Kidney_control_M_92_fq2_fastqc.zip, ../../rawQC/Kidney_control_M_92_fq2_fastqc.html
+    jobid: 80
+    reason: Missing output files: ../../rawQC/Kidney_control_M_92_fq2_fastqc.html, ../../rawQC/Kidney_control_M_92_fq1_fastqc.html
+    wildcards: sample=Kidney_control_M_92
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6766, disk_mib=6453, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 80 has been submitted with SLURM jobid 26430215 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_control_M_92/26430215.log).
+[Wed Oct  8 14:52:55 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-26_346_231_S65_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-26_346_231_S65_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_sepsis_M_26_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_sepsis_M_26_trimmed_R2.fastq.gz
+    jobid: 108
+    reason: Missing output files: ../../trimmedReads/Kidney_sepsis_M_26_trimmed_R2.fastq.gz, ../../trimmedReads/Kidney_sepsis_M_26_trimmed_R1.fastq.gz
+    wildcards: sample=Kidney_sepsis_M_26
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6496, disk_mib=6196, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 108 has been submitted with SLURM jobid 26430216 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_sepsis_M_26/26430216.log).
+[Wed Oct  8 14:52:55 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_control_M_54_fq1_fastqc.zip, ../../rawQC/Kidney_control_M_54_fq1_fastqc.html, ../../rawQC/Kidney_control_M_54_fq2_fastqc.zip, ../../rawQC/Kidney_control_M_54_fq2_fastqc.html
+    jobid: 52
+    reason: Missing output files: ../../rawQC/Kidney_control_M_54_fq1_fastqc.html, ../../rawQC/Kidney_control_M_54_fq2_fastqc.html
+    wildcards: sample=Kidney_control_M_54
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=8582, disk_mib=8185, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 52 has been submitted with SLURM jobid 26430217 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_control_M_54/26430217.log).
+[Wed Oct  8 14:52:55 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-9_324_253_S51_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-9_324_253_S51_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_F_9_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_F_9_trimmed_R2.fastq.gz
+    jobid: 164
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_F_9_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_sepsis_F_9_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_sepsis_F_9
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6481, disk_mib=6181, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 164 has been submitted with SLURM jobid 26430218 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_F_9/26430218.log).
+[Wed Oct  8 14:52:55 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-93_363_214_S118_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-93_363_214_S118_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_93_fq1_fastqc.zip, ../../rawQC/Brain_control_M_93_fq1_fastqc.html, ../../rawQC/Brain_control_M_93_fq2_fastqc.zip, ../../rawQC/Brain_control_M_93_fq2_fastqc.html
+    jobid: 81
+    reason: Missing output files: ../../rawQC/Brain_control_M_93_fq2_fastqc.html, ../../rawQC/Brain_control_M_93_fq1_fastqc.html
+    wildcards: sample=Brain_control_M_93
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=11614, disk_mib=11076, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 81 has been submitted with SLURM jobid 26430219 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_93/26430219.log).
+[Wed Oct  8 14:52:56 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-29_310_267_S68_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-29_310_267_S68_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_F_29_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_F_29_fq1_fastqc.html, ../../rawQC/Brain_sepsis_F_29_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_F_29_fq2_fastqc.html
+    jobid: 25
+    reason: Missing output files: ../../rawQC/Brain_sepsis_F_29_fq1_fastqc.html, ../../rawQC/Brain_sepsis_F_29_fq2_fastqc.html
+    wildcards: sample=Brain_sepsis_F_29
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6367, disk_mib=6073, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 25 has been submitted with SLURM jobid 26430220 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_F_29/26430220.log).
+[Wed Oct  8 14:52:56 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-53_319_258_S90_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-53_319_258_S90_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_53_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_53_trimmed_R2.fastq.gz
+    jobid: 137
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_53_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_control_M_53_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_control_M_53
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8311, disk_mib=7926, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 137 has been submitted with SLURM jobid 26430221 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_53/26430221.log).
+[Wed Oct  8 14:52:56 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-27_334_243_S66_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-27_334_243_S66_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_M_27_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_M_27_trimmed_R2.fastq.gz
+    jobid: 109
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_M_27_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_sepsis_M_27_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_sepsis_M_27
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7687, disk_mib=7331, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 109 has been submitted with SLURM jobid 26430222 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_M_27/26430222.log).
+[Wed Oct  8 14:52:56 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-55_295_282_S92_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-55_295_282_S92_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_55_fq1_fastqc.zip, ../../rawQC/Brain_control_M_55_fq1_fastqc.html, ../../rawQC/Brain_control_M_55_fq2_fastqc.zip, ../../rawQC/Brain_control_M_55_fq2_fastqc.html
+    jobid: 53
+    reason: Missing output files: ../../rawQC/Brain_control_M_55_fq2_fastqc.html, ../../rawQC/Brain_control_M_55_fq1_fastqc.html
+    wildcards: sample=Brain_control_M_55
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=9589, disk_mib=9145, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 53 has been submitted with SLURM jobid 26430223 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_55/26430223.log).
+[Wed Oct  8 14:52:56 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-91_292_285_S116_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-91_292_285_S116_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_91_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_91_trimmed_R2.fastq.gz
+    jobid: 165
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_91_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_91_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_M_91
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7259, disk_mib=6923, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 165 has been submitted with SLURM jobid 26430224 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_91/26430224.log).
+[Wed Oct  8 14:52:56 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-3_372_205_S47_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-3_372_205_S47_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_M_3_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_M_3_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_3_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_M_3_fq2_fastqc.html
+    jobid: 26
+    reason: Missing output files: ../../rawQC/Brain_sepsis_M_3_fq1_fastqc.html, ../../rawQC/Brain_sepsis_M_3_fq2_fastqc.html
+    wildcards: sample=Brain_sepsis_M_3
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6461, disk_mib=6162, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 26 has been submitted with SLURM jobid 26430225 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_M_3/26430225.log).
+[Wed Oct  8 14:52:57 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_control_M_54_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_M_54_trimmed_R2.fastq.gz
+    jobid: 138
+    reason: Missing output files: ../../trimmedReads/Kidney_control_M_54_trimmed_R2.fastq.gz, ../../trimmedReads/Kidney_control_M_54_trimmed_R1.fastq.gz
+    wildcards: sample=Kidney_control_M_54
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8582, disk_mib=8185, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 138 has been submitted with SLURM jobid 26430226 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_control_M_54/26430226.log).
+[Wed Oct  8 14:52:57 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-94_351_226_S119_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-94_351_226_S119_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_control_M_94_fq1_fastqc.zip, ../../rawQC/Kidney_control_M_94_fq1_fastqc.html, ../../rawQC/Kidney_control_M_94_fq2_fastqc.zip, ../../rawQC/Kidney_control_M_94_fq2_fastqc.html
+    jobid: 82
+    reason: Missing output files: ../../rawQC/Kidney_control_M_94_fq2_fastqc.html, ../../rawQC/Kidney_control_M_94_fq1_fastqc.html
+    wildcards: sample=Kidney_control_M_94
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7891, disk_mib=7526, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 82 has been submitted with SLURM jobid 26430227 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_control_M_94/26430227.log).
+[Wed Oct  8 14:52:57 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-28_322_255_S67_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-28_322_255_S67_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_sepsis_M_28_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_sepsis_M_28_trimmed_R2.fastq.gz
+    jobid: 110
+    reason: Missing output files: ../../trimmedReads/Kidney_sepsis_M_28_trimmed_R2.fastq.gz, ../../trimmedReads/Kidney_sepsis_M_28_trimmed_R1.fastq.gz
+    wildcards: sample=Kidney_sepsis_M_28
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=7855, disk_mib=7492, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 110 has been submitted with SLURM jobid 26430228 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_sepsis_M_28/26430228.log).
+[Wed Oct  8 14:52:57 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-56_378_199_S93_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-56_378_199_S93_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_control_M_56_fq1_fastqc.zip, ../../rawQC/Kidney_control_M_56_fq1_fastqc.html, ../../rawQC/Kidney_control_M_56_fq2_fastqc.zip, ../../rawQC/Kidney_control_M_56_fq2_fastqc.html
+    jobid: 54
+    reason: Missing output files: ../../rawQC/Kidney_control_M_56_fq1_fastqc.html, ../../rawQC/Kidney_control_M_56_fq2_fastqc.html
+    wildcards: sample=Kidney_control_M_56
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=4595, disk_mib=4383, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 54 has been submitted with SLURM jobid 26430229 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_control_M_56/26430229.log).
+[Wed Oct  8 14:52:57 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-92_375_202_S117_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-92_375_202_S117_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_control_M_92_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_M_92_trimmed_R2.fastq.gz
+    jobid: 166
+    reason: Missing output files: ../../trimmedReads/Kidney_control_M_92_trimmed_R2.fastq.gz, ../../trimmedReads/Kidney_control_M_92_trimmed_R1.fastq.gz
+    wildcards: sample=Kidney_control_M_92
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6766, disk_mib=6453, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 166 has been submitted with SLURM jobid 26430230 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Kidney_control_M_92/26430230.log).
+[Wed Oct  8 14:52:57 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-31_298_279_S69_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-31_298_279_S69_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_sepsis_F_31_fq1_fastqc.zip, ../../rawQC/Brain_sepsis_F_31_fq1_fastqc.html, ../../rawQC/Brain_sepsis_F_31_fq2_fastqc.zip, ../../rawQC/Brain_sepsis_F_31_fq2_fastqc.html
+    jobid: 27
+    reason: Missing output files: ../../rawQC/Brain_sepsis_F_31_fq2_fastqc.html, ../../rawQC/Brain_sepsis_F_31_fq1_fastqc.html
+    wildcards: sample=Brain_sepsis_F_31
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=5069, disk_mib=4835, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 27 has been submitted with SLURM jobid 26430231 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_sepsis_F_31/26430231.log).
+[Wed Oct  8 14:52:57 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-55_295_282_S92_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-55_295_282_S92_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_55_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_55_trimmed_R2.fastq.gz
+    jobid: 139
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_55_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_control_M_55_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_control_M_55
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=9589, disk_mib=9145, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 139 has been submitted with SLURM jobid 26430232 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_55/26430232.log).
+[Wed Oct  8 14:52:58 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-95_339_238_S120_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-95_339_238_S120_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_M_95_fq1_fastqc.zip, ../../rawQC/Brain_control_M_95_fq1_fastqc.html, ../../rawQC/Brain_control_M_95_fq2_fastqc.zip, ../../rawQC/Brain_control_M_95_fq2_fastqc.html
+    jobid: 83
+    reason: Missing output files: ../../rawQC/Brain_control_M_95_fq2_fastqc.html, ../../rawQC/Brain_control_M_95_fq1_fastqc.html
+    wildcards: sample=Brain_control_M_95
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6017, disk_mib=5739, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 83 has been submitted with SLURM jobid 26430233 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_M_95/26430233.log).
+[Wed Oct  8 14:52:58 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-29_310_267_S68_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-29_310_267_S68_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_sepsis_F_29_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_sepsis_F_29_trimmed_R2.fastq.gz
+    jobid: 111
+    reason: Missing output files: ../../trimmedReads/Brain_sepsis_F_29_trimmed_R2.fastq.gz, ../../trimmedReads/Brain_sepsis_F_29_trimmed_R1.fastq.gz
+    wildcards: sample=Brain_sepsis_F_29
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=6367, disk_mib=6073, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 111 has been submitted with SLURM jobid 26430234 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_sepsis_F_29/26430234.log).
+[Wed Oct  8 14:52:58 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-57_366_211_S94_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-57_366_211_S94_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_F_57_fq1_fastqc.zip, ../../rawQC/Brain_control_F_57_fq1_fastqc.html, ../../rawQC/Brain_control_F_57_fq2_fastqc.zip, ../../rawQC/Brain_control_F_57_fq2_fastqc.html
+    jobid: 55
+    reason: Missing output files: ../../rawQC/Brain_control_F_57_fq1_fastqc.html, ../../rawQC/Brain_control_F_57_fq2_fastqc.html
+    wildcards: sample=Brain_control_F_57
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=6499, disk_mib=6198, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 55 has been submitted with SLURM jobid 26430235 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Brain_control_F_57/26430235.log).
+[Wed Oct  8 14:52:58 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-93_363_214_S118_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-93_363_214_S118_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Brain_control_M_93_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_93_trimmed_R2.fastq.gz
+    jobid: 167
+    reason: Missing output files: ../../trimmedReads/Brain_control_M_93_trimmed_R1.fastq.gz, ../../trimmedReads/Brain_control_M_93_trimmed_R2.fastq.gz
+    wildcards: sample=Brain_control_M_93
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=11614, disk_mib=11076, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+Job 167 has been submitted with SLURM jobid 26430236 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_trim_bbduk/Brain_control_M_93/26430236.log).
+[Wed Oct  8 14:52:58 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-32_381_196_S70_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-32_381_196_S70_L001_R2_001.fastq.gz
+    output: ../../rawQC/Kidney_sepsis_F_32_fq1_fastqc.zip, ../../rawQC/Kidney_sepsis_F_32_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_F_32_fq2_fastqc.zip, ../../rawQC/Kidney_sepsis_F_32_fq2_fastqc.html
+    jobid: 28
+    reason: Missing output files: ../../rawQC/Kidney_sepsis_F_32_fq1_fastqc.html, ../../rawQC/Kidney_sepsis_F_32_fq2_fastqc.html
+    wildcards: sample=Kidney_sepsis_F_32
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=5813, disk_mib=5544, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+Job 28 has been submitted with SLURM jobid 26430237 (log: /tgen_labs/jfryer/kolney/sepsis_human/scripts/00_preprocessing/.snakemake/slurm_logs/rule_raw_fastqc/Kidney_sepsis_F_32/26430237.log).
+Select jobs to execute...

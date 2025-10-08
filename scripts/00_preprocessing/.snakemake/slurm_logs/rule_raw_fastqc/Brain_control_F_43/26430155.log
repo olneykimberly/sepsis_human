@@ -1,0 +1,50 @@
+host: g-c-1-7-21
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided remote nodes: 1
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Oct  8 14:52:49 2025]
+rule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-43_344_233_S80_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-43_344_233_S80_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_F_43_fq1_fastqc.zip, ../../rawQC/Brain_control_F_43_fq1_fastqc.html, ../../rawQC/Brain_control_F_43_fq2_fastqc.zip, ../../rawQC/Brain_control_F_43_fq2_fastqc.html
+    jobid: 0
+    reason: Forced execution
+    wildcards: sample=Brain_control_F_43
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7694, disk_mib=7338, tmpdir=<TBD>, ntasks=1, runtime=60, cpus_per_task=8
+host: g-c-1-7-21
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Oct  8 14:52:50 2025]
+localrule raw_fastqc:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-43_344_233_S80_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-43_344_233_S80_L001_R2_001.fastq.gz
+    output: ../../rawQC/Brain_control_F_43_fq1_fastqc.zip, ../../rawQC/Brain_control_F_43_fq1_fastqc.html, ../../rawQC/Brain_control_F_43_fq2_fastqc.zip, ../../rawQC/Brain_control_F_43_fq2_fastqc.html
+    jobid: 0
+    reason: Forced execution
+    wildcards: sample=Brain_control_F_43
+    resources: mem_mb=64000, mem_mib=61036, disk_mb=7694, disk_mib=7338, tmpdir=/tmp, ntasks=1, runtime=60, cpus_per_task=8
+application/gzip
+Started analysis of Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 5% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 10% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 15% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 20% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 25% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 30% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 35% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 40% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 45% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 50% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 55% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 60% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 65% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 70% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 75% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 80% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz
+Approx 85% complete for Fryer-43_344_233_S80_L001_R1_001.fastq.gz

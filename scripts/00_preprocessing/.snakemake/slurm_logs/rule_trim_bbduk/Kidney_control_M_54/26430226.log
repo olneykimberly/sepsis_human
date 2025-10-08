@@ -1,0 +1,45 @@
+host: g-h-1-8-31
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided remote nodes: 1
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Oct  8 14:53:04 2025]
+rule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_control_M_54_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_M_54_trimmed_R2.fastq.gz
+    jobid: 0
+    reason: Forced execution
+    wildcards: sample=Kidney_control_M_54
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8582, disk_mib=8185, tmpdir=<TBD>, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+host: g-h-1-8-31
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Oct  8 14:53:08 2025]
+localrule trim_bbduk:
+    input: /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R1_001.fastq.gz, /tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R2_001.fastq.gz
+    output: ../../trimmedReads/Kidney_control_M_54_trimmed_R1.fastq.gz, ../../trimmedReads/Kidney_control_M_54_trimmed_R2.fastq.gz
+    jobid: 0
+    reason: Forced execution
+    wildcards: sample=Kidney_control_M_54
+    resources: mem_mb=68000, mem_mib=64850, disk_mb=8582, disk_mib=8185, tmpdir=/tmp, ntasks=1, runtime=450, cpus_per_task=8, threads=8
+java -ea -Xmx28354m -Xms28354m -cp /tgen_labs/jfryer/kolney/tools/miniconda3/envs/sepsis_human/opt/bbmap-39.33-0/current/ jgi.BBDuk in1=/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R1_001.fastq.gz in2=/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R2_001.fastq.gz out1=../../trimmedReads/Kidney_control_M_54_trimmed_R1.fastq.gz out2=../../trimmedReads/Kidney_control_M_54_trimmed_R2.fastq.gz ref=/tgen_labs/jfryer/projects/references/adapters.fa ktrim=r k=23 mink=11 hdist=1 tpe tbo
+Executing jgi.BBDuk [in1=/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R1_001.fastq.gz, in2=/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R2_001.fastq.gz, out1=../../trimmedReads/Kidney_control_M_54_trimmed_R1.fastq.gz, out2=../../trimmedReads/Kidney_control_M_54_trimmed_R2.fastq.gz, ref=/tgen_labs/jfryer/projects/references/adapters.fa, ktrim=r, k=23, mink=11, hdist=1, tpe, tbo]
+Version 39.33
+
+maskMiddle was disabled because useShortKmers=true
+Allocating kmer table: 	0.043 seconds.
+Initial:
+Memory: max=29746m, total=29746m, free=29694m, used=52m
+
+Added 6203 kmers; time: 	0.103 seconds.
+Memory: max=29746m, total=29746m, free=29619m, used=127m
+
+Input is being processed as paired
+Started output streams:	0.083 seconds.
