@@ -54,8 +54,8 @@ rule all:
 #---------------------
 rule raw_fastqc:
         input:
-                fq1 = lambda wildcards: config[wildcards.sample]["fq1"],
-                fq2 = lambda wildcards: config[wildcards.sample]["fq2"]
+                fq1 = lambda wildcards: config[wildcards.sample]["fq_path"] + config[wildcards.sample]["fq1"] + ".fastq.gz",
+                fq2 = lambda wildcards: config[wildcards.sample]["fq_path"] + config[wildcards.sample]["fq2"] + ".fastq.gz"
         output:
                 fq1_zip =  (config["rawQC"]+"{sample}_fq1_fastqc.zip"),
                 fq1_html = (config["rawQC"]+"{sample}_fq1_fastqc.html"),
@@ -82,8 +82,8 @@ rule raw_fastqc:
 #---------------------
 rule trim_bbduk:
 	input:
-		fq1_trim = lambda wildcards: config[wildcards.sample]["fq1"],
-		fq2_trim = lambda wildcards: config[wildcards.sample]["fq2"]
+		fq1_trim = lambda wildcards: config[wildcards.sample]["fq_path"] + config[wildcards.sample]["fq1"] + ".fastq.gz",
+		fq2_trim = lambda wildcards: config[wildcards.sample]["fq_path"] + config[wildcards.sample]["fq2"] + ".fastq.gz"
 	output:
 		out_fq1 = (config["trimmedReads"]+"{sample}_trimmed_R1.fastq.gz"),
 		out_fq2 = (config["trimmedReads"]+"{sample}_trimmed_R2.fastq.gz")

@@ -29,8 +29,9 @@
     "female_names": ['Kidney_sepsis_F_10', 'Brain_control_F_103', 'Kidney_control_F_104', 'Kidney_control_F_106', 'Brain_sepsis_F_13', 'Kidney_sepsis_F_14', 'Brain_sepsis_F_17', 'Kidney_sepsis_F_18', 'Brain_sepsis_F_29', 'Brain_sepsis_F_31', 'Kidney_sepsis_F_32', 'Brain_control_F_37', 'Kidney_control_F_38', 'Brain_control_F_39', 'Kidney_control_F_40', 'Brain_control_F_41', 'Kidney_control_F_42', 'Brain_control_F_43', 'Kidney_control_F_44', 'Brain_control_F_49', 'Brain_sepsis_F_5', 'Kidney_control_F_50', 'Brain_control_F_57', 'Kidney_control_F_58', 'Brain_control_F_59', 'Kidney_control_F_60', 'Brain_control_F_63', 'Kidney_control_F_64', 'Brain_control_F_67', 'Brain_control_F_69', 'Brain_control_F_75', 'Brain_control_F_77', 'Brain_control_F_79', 'Brain_control_F_81', 'Brain_sepsis_F_9', 'Brain_control_F_97', 'Brain_control_F_99'],
 
     "Brain_sepsis_M_1":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-1_384_193_S46_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-1_384_193_S46_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-1_384_193_S46_L001_R1_001",
+        "fq2": "Fryer-1_384_193_S46_L001_R2_001",
         "ID": "Brain_sepsis_M_1",
         "SM": "1",
         "PU": "L001",
@@ -42,8 +43,9 @@
         },
 
     "Kidney_sepsis_F_10":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-10_312_265_S52_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-10_312_265_S52_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-10_312_265_S52_L001_R1_001",
+        "fq2": "Fryer-10_312_265_S52_L001_R2_001",
         "ID": "Kidney_sepsis_F_10",
         "SM": "10",
         "PU": "L001",
@@ -55,8 +57,9 @@
         },
 
     "Brain_control_M_101":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-101_291_286_S86_L002_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-101_291_286_S86_L002_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-101_291_286_S86_L002_R1_001",
+        "fq2": "Fryer-101_291_286_S86_L002_R2_001",
         "ID": "Brain_control_M_101",
         "SM": "101",
         "PU": "L002",
@@ -68,8 +71,9 @@
         },
 
     "Kidney_control_M_102":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-102_374_203_S87_L002_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-102_374_203_S87_L002_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-102_374_203_S87_L002_R1_001",
+        "fq2": "Fryer-102_374_203_S87_L002_R2_001",
         "ID": "Kidney_control_M_102",
         "SM": "102",
         "PU": "L002",
@@ -81,8 +85,9 @@
         },
 
     "Brain_control_F_103":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-103_362_215_S88_L002_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-103_362_215_S88_L002_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-103_362_215_S88_L002_R1_001",
+        "fq2": "Fryer-103_362_215_S88_L002_R2_001",
         "ID": "Brain_control_F_103",
         "SM": "103",
         "PU": "L002",
@@ -94,8 +99,9 @@
         },
 
     "Kidney_control_F_104":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-104_350_227_S89_L002_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-104_350_227_S89_L002_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-104_350_227_S89_L002_R1_001",
+        "fq2": "Fryer-104_350_227_S89_L002_R2_001",
         "ID": "Kidney_control_F_104",
         "SM": "104",
         "PU": "L002",
@@ -107,8 +113,9 @@
         },
 
     "Kidney_control_F_106":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-106_338_239_S90_L002_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-106_338_239_S90_L002_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-106_338_239_S90_L002_R1_001",
+        "fq2": "Fryer-106_338_239_S90_L002_R2_001",
         "ID": "Kidney_control_F_106",
         "SM": "106",
         "PU": "L002",
@@ -120,8 +127,9 @@
         },
 
     "Brain_control_M_107":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-107_326_251_S91_L002_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-107_326_251_S91_L002_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-107_326_251_S91_L002_R1_001",
+        "fq2": "Fryer-107_326_251_S91_L002_R2_001",
         "ID": "Brain_control_M_107",
         "SM": "107",
         "PU": "L002",
@@ -133,8 +141,9 @@
         },
 
     "Kidney_control_M_108":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-108_314_263_S92_L002_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-108_314_263_S92_L002_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-108_314_263_S92_L002_R1_001",
+        "fq2": "Fryer-108_314_263_S92_L002_R2_001",
         "ID": "Kidney_control_M_108",
         "SM": "108",
         "PU": "L002",
@@ -146,8 +155,9 @@
         },
 
     "Brain_sepsis_M_11":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-11_300_277_S53_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-11_300_277_S53_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-11_300_277_S53_L001_R1_001",
+        "fq2": "Fryer-11_300_277_S53_L001_R2_001",
         "ID": "Brain_sepsis_M_11",
         "SM": "11",
         "PU": "L001",
@@ -159,8 +169,9 @@
         },
 
     "Brain_sepsis_F_13":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-13_383_194_S54_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-13_383_194_S54_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-13_383_194_S54_L001_R1_001",
+        "fq2": "Fryer-13_383_194_S54_L001_R2_001",
         "ID": "Brain_sepsis_F_13",
         "SM": "13",
         "PU": "L001",
@@ -172,8 +183,9 @@
         },
 
     "Kidney_sepsis_F_14":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-14_371_206_S55_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-14_371_206_S55_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-14_371_206_S55_L001_R1_001",
+        "fq2": "Fryer-14_371_206_S55_L001_R2_001",
         "ID": "Kidney_sepsis_F_14",
         "SM": "14",
         "PU": "L001",
@@ -185,8 +197,9 @@
         },
 
     "Brain_sepsis_M_15":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-15_359_218_S56_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-15_359_218_S56_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-15_359_218_S56_L001_R1_001",
+        "fq2": "Fryer-15_359_218_S56_L001_R2_001",
         "ID": "Brain_sepsis_M_15",
         "SM": "15",
         "PU": "L001",
@@ -198,8 +211,9 @@
         },
 
     "Brain_sepsis_F_17":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-17_347_230_S57_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-17_347_230_S57_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-17_347_230_S57_L001_R1_001",
+        "fq2": "Fryer-17_347_230_S57_L001_R2_001",
         "ID": "Brain_sepsis_F_17",
         "SM": "17",
         "PU": "L001",
@@ -211,8 +225,9 @@
         },
 
     "Kidney_sepsis_F_18":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-18_335_242_S58_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-18_335_242_S58_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-18_335_242_S58_L001_R1_001",
+        "fq2": "Fryer-18_335_242_S58_L001_R2_001",
         "ID": "Kidney_sepsis_F_18",
         "SM": "18",
         "PU": "L001",
@@ -224,8 +239,9 @@
         },
 
     "Brain_sepsis_M_19":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-19_323_254_S59_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-19_323_254_S59_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-19_323_254_S59_L001_R1_001",
+        "fq2": "Fryer-19_323_254_S59_L001_R2_001",
         "ID": "Brain_sepsis_M_19",
         "SM": "19",
         "PU": "L001",
@@ -237,8 +253,9 @@
         },
 
     "Brain_sepsis_M_21":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-21_311_266_S60_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-21_311_266_S60_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-21_311_266_S60_L001_R1_001",
+        "fq2": "Fryer-21_311_266_S60_L001_R2_001",
         "ID": "Brain_sepsis_M_21",
         "SM": "21",
         "PU": "L001",
@@ -250,8 +267,9 @@
         },
 
     "Kidney_sepsis_M_22":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-22_299_278_S61_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-22_299_278_S61_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-22_299_278_S61_L001_R1_001",
+        "fq2": "Fryer-22_299_278_S61_L001_R2_001",
         "ID": "Kidney_sepsis_M_22",
         "SM": "22",
         "PU": "L001",
@@ -263,8 +281,9 @@
         },
 
     "Brain_sepsis_M_23":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-23_382_195_S62_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-23_382_195_S62_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-23_382_195_S62_L001_R1_001",
+        "fq2": "Fryer-23_382_195_S62_L001_R2_001",
         "ID": "Brain_sepsis_M_23",
         "SM": "23",
         "PU": "L001",
@@ -276,8 +295,9 @@
         },
 
     "Kidney_sepsis_M_24":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-24_370_207_S63_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-24_370_207_S63_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-24_370_207_S63_L001_R1_001",
+        "fq2": "Fryer-24_370_207_S63_L001_R2_001",
         "ID": "Kidney_sepsis_M_24",
         "SM": "24",
         "PU": "L001",
@@ -289,8 +309,9 @@
         },
 
     "Brain_sepsis_M_25":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-25_358_219_S64_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-25_358_219_S64_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-25_358_219_S64_L001_R1_001",
+        "fq2": "Fryer-25_358_219_S64_L001_R2_001",
         "ID": "Brain_sepsis_M_25",
         "SM": "25",
         "PU": "L001",
@@ -302,8 +323,9 @@
         },
 
     "Kidney_sepsis_M_26":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-26_346_231_S65_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-26_346_231_S65_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-26_346_231_S65_L001_R1_001",
+        "fq2": "Fryer-26_346_231_S65_L001_R2_001",
         "ID": "Kidney_sepsis_M_26",
         "SM": "26",
         "PU": "L001",
@@ -315,8 +337,9 @@
         },
 
     "Brain_sepsis_M_27":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-27_334_243_S66_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-27_334_243_S66_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-27_334_243_S66_L001_R1_001",
+        "fq2": "Fryer-27_334_243_S66_L001_R2_001",
         "ID": "Brain_sepsis_M_27",
         "SM": "27",
         "PU": "L001",
@@ -328,8 +351,9 @@
         },
 
     "Kidney_sepsis_M_28":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-28_322_255_S67_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-28_322_255_S67_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-28_322_255_S67_L001_R1_001",
+        "fq2": "Fryer-28_322_255_S67_L001_R2_001",
         "ID": "Kidney_sepsis_M_28",
         "SM": "28",
         "PU": "L001",
@@ -341,8 +365,9 @@
         },
 
     "Brain_sepsis_F_29":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-29_310_267_S68_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-29_310_267_S68_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-29_310_267_S68_L001_R1_001",
+        "fq2": "Fryer-29_310_267_S68_L001_R2_001",
         "ID": "Brain_sepsis_F_29",
         "SM": "29",
         "PU": "L001",
@@ -354,8 +379,9 @@
         },
 
     "Brain_sepsis_M_3":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-3_372_205_S47_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-3_372_205_S47_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-3_372_205_S47_L001_R1_001",
+        "fq2": "Fryer-3_372_205_S47_L001_R2_001",
         "ID": "Brain_sepsis_M_3",
         "SM": "3",
         "PU": "L001",
@@ -367,8 +393,9 @@
         },
 
     "Brain_sepsis_F_31":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-31_298_279_S69_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-31_298_279_S69_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-31_298_279_S69_L001_R1_001",
+        "fq2": "Fryer-31_298_279_S69_L001_R2_001",
         "ID": "Brain_sepsis_F_31",
         "SM": "31",
         "PU": "L001",
@@ -380,8 +407,9 @@
         },
 
     "Kidney_sepsis_F_32":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-32_381_196_S70_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-32_381_196_S70_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-32_381_196_S70_L001_R1_001",
+        "fq2": "Fryer-32_381_196_S70_L001_R2_001",
         "ID": "Kidney_sepsis_F_32",
         "SM": "32",
         "PU": "L001",
@@ -393,8 +421,9 @@
         },
 
     "Brain_sepsis_M_33":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-33_369_208_S84_L003_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-33_369_208_S84_L003_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-33_369_208_S84_L003_R1_001",
+        "fq2": "Fryer-33_369_208_S84_L003_R2_001",
         "ID": "Brain_sepsis_M_33",
         "SM": "33",
         "PU": "L003",
@@ -406,8 +435,9 @@
         },
 
     "Kidney_sepsis_M_34":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-34_357_220_S71_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-34_357_220_S71_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-34_357_220_S71_L001_R1_001",
+        "fq2": "Fryer-34_357_220_S71_L001_R2_001",
         "ID": "Kidney_sepsis_M_34",
         "SM": "34",
         "PU": "L001",
@@ -419,8 +449,9 @@
         },
 
     "Brain_sepsis_M_35":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-35_345_232_S72_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-35_345_232_S72_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-35_345_232_S72_L001_R1_001",
+        "fq2": "Fryer-35_345_232_S72_L001_R2_001",
         "ID": "Brain_sepsis_M_35",
         "SM": "35",
         "PU": "L001",
@@ -432,8 +463,9 @@
         },
 
     "Kidney_sepsis_M_36":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-36_333_244_S73_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-36_333_244_S73_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-36_333_244_S73_L001_R1_001",
+        "fq2": "Fryer-36_333_244_S73_L001_R2_001",
         "ID": "Kidney_sepsis_M_36",
         "SM": "36",
         "PU": "L001",
@@ -445,8 +477,9 @@
         },
 
     "Brain_control_F_37":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-37_321_256_S74_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-37_321_256_S74_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-37_321_256_S74_L001_R1_001",
+        "fq2": "Fryer-37_321_256_S74_L001_R2_001",
         "ID": "Brain_control_F_37",
         "SM": "37",
         "PU": "L001",
@@ -458,8 +491,9 @@
         },
 
     "Kidney_control_F_38":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-38_309_268_S75_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-38_309_268_S75_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-38_309_268_S75_L001_R1_001",
+        "fq2": "Fryer-38_309_268_S75_L001_R2_001",
         "ID": "Kidney_control_F_38",
         "SM": "38",
         "PU": "L001",
@@ -471,8 +505,9 @@
         },
 
     "Brain_control_F_39":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-39_297_280_S76_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-39_297_280_S76_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-39_297_280_S76_L001_R1_001",
+        "fq2": "Fryer-39_297_280_S76_L001_R2_001",
         "ID": "Brain_control_F_39",
         "SM": "39",
         "PU": "L001",
@@ -484,8 +519,9 @@
         },
 
     "Kidney_sepsis_M_4":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-4_360_217_S48_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-4_360_217_S48_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-4_360_217_S48_L001_R1_001",
+        "fq2": "Fryer-4_360_217_S48_L001_R2_001",
         "ID": "Kidney_sepsis_M_4",
         "SM": "4",
         "PU": "L001",
@@ -497,8 +533,9 @@
         },
 
     "Kidney_control_F_40":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-40_380_197_S77_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-40_380_197_S77_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-40_380_197_S77_L001_R1_001",
+        "fq2": "Fryer-40_380_197_S77_L001_R2_001",
         "ID": "Kidney_control_F_40",
         "SM": "40",
         "PU": "L001",
@@ -510,8 +547,9 @@
         },
 
     "Brain_control_F_41":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-41_368_209_S78_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-41_368_209_S78_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-41_368_209_S78_L001_R1_001",
+        "fq2": "Fryer-41_368_209_S78_L001_R2_001",
         "ID": "Brain_control_F_41",
         "SM": "41",
         "PU": "L001",
@@ -523,8 +561,9 @@
         },
 
     "Kidney_control_F_42":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-42_356_221_S79_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-42_356_221_S79_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-42_356_221_S79_L001_R1_001",
+        "fq2": "Fryer-42_356_221_S79_L001_R2_001",
         "ID": "Kidney_control_F_42",
         "SM": "42",
         "PU": "L001",
@@ -536,8 +575,9 @@
         },
 
     "Brain_control_F_43":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-43_344_233_S80_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-43_344_233_S80_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-43_344_233_S80_L001_R1_001",
+        "fq2": "Fryer-43_344_233_S80_L001_R2_001",
         "ID": "Brain_control_F_43",
         "SM": "43",
         "PU": "L001",
@@ -549,8 +589,9 @@
         },
 
     "Kidney_control_F_44":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-44_332_245_S81_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-44_332_245_S81_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-44_332_245_S81_L001_R1_001",
+        "fq2": "Fryer-44_332_245_S81_L001_R2_001",
         "ID": "Kidney_control_F_44",
         "SM": "44",
         "PU": "L001",
@@ -562,8 +603,9 @@
         },
 
     "Brain_control_M_45":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-45_320_257_S82_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-45_320_257_S82_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-45_320_257_S82_L001_R1_001",
+        "fq2": "Fryer-45_320_257_S82_L001_R2_001",
         "ID": "Brain_control_M_45",
         "SM": "45",
         "PU": "L001",
@@ -575,8 +617,9 @@
         },
 
     "Kidney_control_M_46":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-46_308_269_S83_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-46_308_269_S83_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-46_308_269_S83_L001_R1_001",
+        "fq2": "Fryer-46_308_269_S83_L001_R2_001",
         "ID": "Kidney_control_M_46",
         "SM": "46",
         "PU": "L001",
@@ -588,8 +631,9 @@
         },
 
     "Brain_control_M_47":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-47_296_281_S84_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-47_296_281_S84_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-47_296_281_S84_L001_R1_001",
+        "fq2": "Fryer-47_296_281_S84_L001_R2_001",
         "ID": "Brain_control_M_47",
         "SM": "47",
         "PU": "L001",
@@ -601,8 +645,9 @@
         },
 
     "Kidney_control_M_48":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-48_379_198_S85_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-48_379_198_S85_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-48_379_198_S85_L001_R1_001",
+        "fq2": "Fryer-48_379_198_S85_L001_R2_001",
         "ID": "Kidney_control_M_48",
         "SM": "48",
         "PU": "L001",
@@ -614,8 +659,9 @@
         },
 
     "Brain_control_F_49":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-49_367_210_S86_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-49_367_210_S86_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-49_367_210_S86_L001_R1_001",
+        "fq2": "Fryer-49_367_210_S86_L001_R2_001",
         "ID": "Brain_control_F_49",
         "SM": "49",
         "PU": "L001",
@@ -627,8 +673,9 @@
         },
 
     "Brain_sepsis_F_5":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-5_348_229_S49_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-5_348_229_S49_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-5_348_229_S49_L001_R1_001",
+        "fq2": "Fryer-5_348_229_S49_L001_R2_001",
         "ID": "Brain_sepsis_F_5",
         "SM": "5",
         "PU": "L001",
@@ -640,8 +687,9 @@
         },
 
     "Kidney_control_F_50":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-50_355_222_S87_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-50_355_222_S87_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-50_355_222_S87_L001_R1_001",
+        "fq2": "Fryer-50_355_222_S87_L001_R2_001",
         "ID": "Kidney_control_F_50",
         "SM": "50",
         "PU": "L001",
@@ -653,8 +701,9 @@
         },
 
     "Brain_control_M_51":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-51_343_234_S88_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-51_343_234_S88_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-51_343_234_S88_L001_R1_001",
+        "fq2": "Fryer-51_343_234_S88_L001_R2_001",
         "ID": "Brain_control_M_51",
         "SM": "51",
         "PU": "L001",
@@ -666,8 +715,9 @@
         },
 
     "Kidney_control_M_52":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-52_331_246_S89_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-52_331_246_S89_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-52_331_246_S89_L001_R1_001",
+        "fq2": "Fryer-52_331_246_S89_L001_R2_001",
         "ID": "Kidney_control_M_52",
         "SM": "52",
         "PU": "L001",
@@ -679,8 +729,9 @@
         },
 
     "Brain_control_M_53":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-53_319_258_S90_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-53_319_258_S90_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-53_319_258_S90_L001_R1_001",
+        "fq2": "Fryer-53_319_258_S90_L001_R2_001",
         "ID": "Brain_control_M_53",
         "SM": "53",
         "PU": "L001",
@@ -692,8 +743,9 @@
         },
 
     "Kidney_control_M_54":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-54_307_270_S91_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-54_307_270_S91_L001_R1_001",
+        "fq2": "Fryer-54_307_270_S91_L001_R2_001",
         "ID": "Kidney_control_M_54",
         "SM": "54",
         "PU": "L001",
@@ -705,8 +757,9 @@
         },
 
     "Brain_control_M_55":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-55_295_282_S92_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-55_295_282_S92_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-55_295_282_S92_L001_R1_001",
+        "fq2": "Fryer-55_295_282_S92_L001_R2_001",
         "ID": "Brain_control_M_55",
         "SM": "55",
         "PU": "L001",
@@ -718,8 +771,9 @@
         },
 
     "Kidney_control_M_56":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-56_378_199_S93_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-56_378_199_S93_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-56_378_199_S93_L001_R1_001",
+        "fq2": "Fryer-56_378_199_S93_L001_R2_001",
         "ID": "Kidney_control_M_56",
         "SM": "56",
         "PU": "L001",
@@ -731,8 +785,9 @@
         },
 
     "Brain_control_F_57":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-57_366_211_S94_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-57_366_211_S94_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-57_366_211_S94_L001_R1_001",
+        "fq2": "Fryer-57_366_211_S94_L001_R2_001",
         "ID": "Brain_control_F_57",
         "SM": "57",
         "PU": "L001",
@@ -744,8 +799,9 @@
         },
 
     "Kidney_control_F_58":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-58_354_223_S95_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-58_354_223_S95_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-58_354_223_S95_L001_R1_001",
+        "fq2": "Fryer-58_354_223_S95_L001_R2_001",
         "ID": "Kidney_control_F_58",
         "SM": "58",
         "PU": "L001",
@@ -757,8 +813,9 @@
         },
 
     "Brain_control_F_59":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-59_342_235_S96_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-59_342_235_S96_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-59_342_235_S96_L001_R1_001",
+        "fq2": "Fryer-59_342_235_S96_L001_R2_001",
         "ID": "Brain_control_F_59",
         "SM": "59",
         "PU": "L001",
@@ -770,8 +827,9 @@
         },
 
     "Kidney_control_F_60":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-60_330_247_S97_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-60_330_247_S97_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-60_330_247_S97_L001_R1_001",
+        "fq2": "Fryer-60_330_247_S97_L001_R2_001",
         "ID": "Kidney_control_F_60",
         "SM": "60",
         "PU": "L001",
@@ -783,8 +841,9 @@
         },
 
     "Brain_control_M_61":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-61_318_259_S98_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-61_318_259_S98_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-61_318_259_S98_L001_R1_001",
+        "fq2": "Fryer-61_318_259_S98_L001_R2_001",
         "ID": "Brain_control_M_61",
         "SM": "61",
         "PU": "L001",
@@ -796,8 +855,9 @@
         },
 
     "Kidney_control_M_62":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-62_306_271_S99_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-62_306_271_S99_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-62_306_271_S99_L001_R1_001",
+        "fq2": "Fryer-62_306_271_S99_L001_R2_001",
         "ID": "Kidney_control_M_62",
         "SM": "62",
         "PU": "L001",
@@ -809,8 +869,9 @@
         },
 
     "Brain_control_F_63":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-63_294_283_S100_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-63_294_283_S100_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-63_294_283_S100_L001_R1_001",
+        "fq2": "Fryer-63_294_283_S100_L001_R2_001",
         "ID": "Brain_control_F_63",
         "SM": "63",
         "PU": "L001",
@@ -822,8 +883,9 @@
         },
 
     "Kidney_control_F_64":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-64_377_200_S101_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-64_377_200_S101_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-64_377_200_S101_L001_R1_001",
+        "fq2": "Fryer-64_377_200_S101_L001_R2_001",
         "ID": "Kidney_control_F_64",
         "SM": "64",
         "PU": "L001",
@@ -835,8 +897,9 @@
         },
 
     "Brain_control_M_65":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-65_365_212_S102_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-65_365_212_S102_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-65_365_212_S102_L001_R1_001",
+        "fq2": "Fryer-65_365_212_S102_L001_R2_001",
         "ID": "Brain_control_M_65",
         "SM": "65",
         "PU": "L001",
@@ -848,8 +911,9 @@
         },
 
     "Kidney_control_M_66":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-66_353_224_S103_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-66_353_224_S103_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-66_353_224_S103_L001_R1_001",
+        "fq2": "Fryer-66_353_224_S103_L001_R2_001",
         "ID": "Kidney_control_M_66",
         "SM": "66",
         "PU": "L001",
@@ -861,8 +925,9 @@
         },
 
     "Brain_control_F_67":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-67_341_236_S104_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-67_341_236_S104_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-67_341_236_S104_L001_R1_001",
+        "fq2": "Fryer-67_341_236_S104_L001_R2_001",
         "ID": "Brain_control_F_67",
         "SM": "67",
         "PU": "L001",
@@ -874,8 +939,9 @@
         },
 
     "Brain_control_F_69":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-69_329_248_S105_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-69_329_248_S105_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-69_329_248_S105_L001_R1_001",
+        "fq2": "Fryer-69_329_248_S105_L001_R2_001",
         "ID": "Brain_control_F_69",
         "SM": "69",
         "PU": "L001",
@@ -887,8 +953,9 @@
         },
 
     "Brain_sepsis_M_7":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-7_336_241_S50_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-7_336_241_S50_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-7_336_241_S50_L001_R1_001",
+        "fq2": "Fryer-7_336_241_S50_L001_R2_001",
         "ID": "Brain_sepsis_M_7",
         "SM": "7",
         "PU": "L001",
@@ -900,8 +967,9 @@
         },
 
     "Brain_control_M_71":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-71_317_260_S106_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-71_317_260_S106_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-71_317_260_S106_L001_R1_001",
+        "fq2": "Fryer-71_317_260_S106_L001_R2_001",
         "ID": "Brain_control_M_71",
         "SM": "71",
         "PU": "L001",
@@ -913,8 +981,9 @@
         },
 
     "Brain_control_M_73":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-73_305_272_S107_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-73_305_272_S107_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-73_305_272_S107_L001_R1_001",
+        "fq2": "Fryer-73_305_272_S107_L001_R2_001",
         "ID": "Brain_control_M_73",
         "SM": "73",
         "PU": "L001",
@@ -926,8 +995,9 @@
         },
 
     "Brain_control_F_75":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-75_293_284_S108_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-75_293_284_S108_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-75_293_284_S108_L001_R1_001",
+        "fq2": "Fryer-75_293_284_S108_L001_R2_001",
         "ID": "Brain_control_F_75",
         "SM": "75",
         "PU": "L001",
@@ -939,8 +1009,9 @@
         },
 
     "Brain_control_F_77":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-77_376_201_S109_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-77_376_201_S109_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-77_376_201_S109_L001_R1_001",
+        "fq2": "Fryer-77_376_201_S109_L001_R2_001",
         "ID": "Brain_control_F_77",
         "SM": "77",
         "PU": "L001",
@@ -952,8 +1023,9 @@
         },
 
     "Brain_control_F_79":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-79_364_213_S110_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-79_364_213_S110_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-79_364_213_S110_L001_R1_001",
+        "fq2": "Fryer-79_364_213_S110_L001_R2_001",
         "ID": "Brain_control_F_79",
         "SM": "79",
         "PU": "L001",
@@ -965,8 +1037,9 @@
         },
 
     "Brain_control_F_81":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-81_352_225_S111_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-81_352_225_S111_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-81_352_225_S111_L001_R1_001",
+        "fq2": "Fryer-81_352_225_S111_L001_R2_001",
         "ID": "Brain_control_F_81",
         "SM": "81",
         "PU": "L001",
@@ -978,8 +1051,9 @@
         },
 
     "Brain_control_M_83":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-83_340_237_S112_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-83_340_237_S112_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-83_340_237_S112_L001_R1_001",
+        "fq2": "Fryer-83_340_237_S112_L001_R2_001",
         "ID": "Brain_control_M_83",
         "SM": "83",
         "PU": "L001",
@@ -991,8 +1065,9 @@
         },
 
     "Brain_control_M_85":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-85_328_249_S113_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-85_328_249_S113_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-85_328_249_S113_L001_R1_001",
+        "fq2": "Fryer-85_328_249_S113_L001_R2_001",
         "ID": "Brain_control_M_85",
         "SM": "85",
         "PU": "L001",
@@ -1004,8 +1079,9 @@
         },
 
     "Brain_control_M_87":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-87_316_261_S114_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-87_316_261_S114_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-87_316_261_S114_L001_R1_001",
+        "fq2": "Fryer-87_316_261_S114_L001_R2_001",
         "ID": "Brain_control_M_87",
         "SM": "87",
         "PU": "L001",
@@ -1017,8 +1093,9 @@
         },
 
     "Brain_control_M_89":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-89_304_273_S115_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-89_304_273_S115_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-89_304_273_S115_L001_R1_001",
+        "fq2": "Fryer-89_304_273_S115_L001_R2_001",
         "ID": "Brain_control_M_89",
         "SM": "89",
         "PU": "L001",
@@ -1030,8 +1107,9 @@
         },
 
     "Brain_sepsis_F_9":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-9_324_253_S51_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-9_324_253_S51_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-9_324_253_S51_L001_R1_001",
+        "fq2": "Fryer-9_324_253_S51_L001_R2_001",
         "ID": "Brain_sepsis_F_9",
         "SM": "9",
         "PU": "L001",
@@ -1043,8 +1121,9 @@
         },
 
     "Brain_control_M_91":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-91_292_285_S116_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-91_292_285_S116_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-91_292_285_S116_L001_R1_001",
+        "fq2": "Fryer-91_292_285_S116_L001_R2_001",
         "ID": "Brain_control_M_91",
         "SM": "91",
         "PU": "L001",
@@ -1056,8 +1135,9 @@
         },
 
     "Kidney_control_M_92":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-92_375_202_S117_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-92_375_202_S117_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-92_375_202_S117_L001_R1_001",
+        "fq2": "Fryer-92_375_202_S117_L001_R2_001",
         "ID": "Kidney_control_M_92",
         "SM": "92",
         "PU": "L001",
@@ -1069,8 +1149,9 @@
         },
 
     "Brain_control_M_93":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-93_363_214_S118_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-93_363_214_S118_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-93_363_214_S118_L001_R1_001",
+        "fq2": "Fryer-93_363_214_S118_L001_R2_001",
         "ID": "Brain_control_M_93",
         "SM": "93",
         "PU": "L001",
@@ -1082,8 +1163,9 @@
         },
 
     "Kidney_control_M_94":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-94_351_226_S119_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-94_351_226_S119_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-94_351_226_S119_L001_R1_001",
+        "fq2": "Fryer-94_351_226_S119_L001_R2_001",
         "ID": "Kidney_control_M_94",
         "SM": "94",
         "PU": "L001",
@@ -1095,8 +1177,9 @@
         },
 
     "Brain_control_M_95":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-95_339_238_S120_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-95_339_238_S120_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-95_339_238_S120_L001_R1_001",
+        "fq2": "Fryer-95_339_238_S120_L001_R2_001",
         "ID": "Brain_control_M_95",
         "SM": "95",
         "PU": "L001",
@@ -1108,8 +1191,9 @@
         },
 
     "Kidney_control_M_96":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-96_327_250_S121_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-96_327_250_S121_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-96_327_250_S121_L001_R1_001",
+        "fq2": "Fryer-96_327_250_S121_L001_R2_001",
         "ID": "Kidney_control_M_96",
         "SM": "96",
         "PU": "L001",
@@ -1121,8 +1205,9 @@
         },
 
     "Brain_control_F_97":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-97_315_262_S122_L001_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-97_315_262_S122_L001_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-97_315_262_S122_L001_R1_001",
+        "fq2": "Fryer-97_315_262_S122_L001_R2_001",
         "ID": "Brain_control_F_97",
         "SM": "97",
         "PU": "L001",
@@ -1134,8 +1219,9 @@
         },
 
     "Brain_control_F_99":{
-        "fq1": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-99_303_274_S85_L002_R1_001.fastq.gz",
-        "fq2": "/tgen_labs/jfryer/kolney/sepsis_human/fastq/Fryer-99_303_274_S85_L002_R2_001.fastq.gz",
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
+        "fq1": "Fryer-99_303_274_S85_L002_R1_001",
+        "fq2": "Fryer-99_303_274_S85_L002_R2_001",
         "ID": "Brain_control_F_99",
         "SM": "99",
         "PU": "L002",

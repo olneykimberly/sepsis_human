@@ -71,8 +71,9 @@ with open('../../metadata/metadata_merged.tsv', 'r') as infile:
         sampleAttributes = split[0].split('_')  # project_uniqueNum_1_tissue_group_XX_XX_sequencer_adapter_lane_read_001 
                           # Brain_sepsis_M_1_B1L1_Fryer-1_384_193_S46_L001_R1_001.fastq.gz_@A00124:303:HC2WMDSX2:1:1101:1271:1000 1:N:0:GGTACCGACC+CAGATACCAC
 
-        base = '/tgen_labs/jfryer/kolney/sepsis_human/fastq/' + sampleAttributes[5] + '_' + sampleAttributes[6] + '_' + sampleAttributes[7] +  '_' + sampleAttributes[8] + '_' + sampleAttributes[9] + '_' + sampleAttributes[10] +'_' + sampleAttributes[11] 
-        sampleName1 = base
+        base = sampleAttributes[5] + '_' + sampleAttributes[6] + '_' + sampleAttributes[7] +  '_' + sampleAttributes[8] + '_' + sampleAttributes[9] + '_' + sampleAttributes[10] +'_' + sampleAttributes[11] 
+        base_nogz = base.replace(".fastq.gz", "")
+        sampleName1 = base_nogz
         sampleName2 = sampleName1.replace("_R1_", "_R2_")
         sampleInfo = split[0]
 
@@ -98,6 +99,7 @@ with open('../../metadata/metadata_merged.tsv', 'r') as infile:
 
         out = '''
     "{0}":{{
+        "fq_path" : "/tgen_labs/jfryer/kolney/sepsis_human/fastq/",
         "fq1": "{1}",
         "fq2": "{2}",
         "ID": "{3}",
