@@ -64,8 +64,8 @@ rule raw_fastqc:
         params:
                 fastqc = fastqc_path,
                 fastqc_dir = (config["rawQC"]),
-                fq1_prefix = lambda wildcards: config[wildcards.sample]["fq1"],
-                fq2_prefix = lambda wildcards: config[wildcards.sample]["fq2"],
+                fq1_prefix = lambda wildcards: config[wildcards.sample]["fq_path"] + config[wildcards.sample]["fq1"],
+                fq2_prefix = lambda wildcards: config[wildcards.sample]["fq_path"] + config[wildcards.sample]["fq2"],
         shell:
                 """
                 {params.fastqc} {input.fq1};

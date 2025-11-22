@@ -1,0 +1,910 @@
+---
+title: "Differential expression - human sepsis mRNA"
+author: "Kimberly Olney, PhD"
+date: "October 20th 2025"
+output:
+  pdf_document: default
+params:
+  project: 1WPI
+---
+
+Compare sepsis versus controls. Brain and kidney. 
+
+# Set up working enivornment
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = ".")
+getwd()
+```
+
+```{r libraries, message=FALSE, warning=FALSE}
+source("/tgen_labs/jfryer/kolney/sepsis_human/scripts/file_paths_and_colours_human.R")
+projectID <- "human_sepsis"
+```
+
+# Tissue
+```{r}
+tissue <- "Kidney"
+sex <- "_XY_male"
+metadata <- subset(metadata, tissue == "Kidney")
+metadata <- subset(metadata, sex == "M")
+```
+
+# Sample bar plot
+```{r}
+bar_plot <- ggplot(metadata, aes(group, after_stat(count), fill = group)) +
+  geom_bar() +
+  theme_bw() +
+  xlab("Disease group") +
+  ggtitle("Bulk RNAseq sample count by disease group") +
+  geom_text(
+    stat = 'count',
+    aes(label = after_stat(count)),
+    vjust = 1.6,
+    color = "white",
+    size = 3.5
+  ) +
+  scale_fill_manual(values = color_disease)
+bar_plot
+```
+# Create sub directories
+```{r}
+base_path <- "../../results"
+results_folder <- "human_kidney_sex_stratified" #
+dir_to_create <- c("counts", "DEGs", "JSD", "library", "MDS", "variance", "volcano", "voom", "PCA", "clinical")
+
+full_paths <- file.path(base_path, results_folder, dir_to_create)
+sapply(full_paths, function(d) {
+  if (!dir.exists(d)) {
+    dir.create(d, recursive = TRUE)
+    cat(paste("Created directory:", d, "\n"))
+  } else {
+    cat(paste("Directory already exists:", d, "\n"))
+  }
+})
+list.dirs(file.path(base_path, results_folder), full.names = FALSE, recursive = FALSE)
+```
+
+
+# Create a counts matrix
+This is the raw counts 
+```{r raw_counts}
+# path to counts files
+count_files <-
+  file.path(paste0(
+    "../../starAligned_SCC/",
+    metadata$tissue, "_", 
+    metadata$group, "_", 
+    metadata$sex, "_", 
+    metadata$unique_id, 
+    "_STAR_", 
+    metadata$sex_chr,
+    ".bam",
+    typeOfCount
+  ))
+# add sample counts name to the counts files
+names(count_files) <- paste0(metadata$Sample_ID)
+# Inspect 
+table(metadata$Sample_ID)
+
+# Create the counts matrix 
+count_data <- data.frame(fread(count_files[1]))[c(1,4)] # forth column for RF reads 
+# Loop and read the 4th column
+for(i in 2:length(count_files)) {
+        count_data <- cbind(count_data, data.frame(fread(count_files[i]))[4])
+}
+# set gene_id as the row name
+row.names(count_data) <- count_data$V1
+```
+
+# Mapping metrics
+```{r mapping_metrics}
+star_metrics <- data.frame(count_data[count_data$V1 %like% "N_", ])
+star_metrics$V1 <- as.vector(star_metrics$V1)
+melt_star_metrics <- reshape::melt(star_metrics, id = c("V1"))
+ggplot(melt_star_metrics, aes(x = value, fill = V1)) + 
+  geom_histogram(position = "identity", bins = 100) + 
+  facet_grid(V1 ~ .)  + theme_bw()
+```
+
+clean up
+```{r}
+remove(melt_star_metrics, star_metrics, i, count_files)
+```
+
+# Format counts table
+```{r counts_table}
+# remove star metric information
+count_data <- count_data[!grepl("N_", count_data$V1),]
+# set gene_id (i.e. V1) as the row name
+row.names(count_data) <- count_data$V1
+count_data$V1 <- NULL
+# set column names to sample counts file name
+colnames(count_data) <- metadata$Sample_ID
+
+genes <- read.delim("../genes.tsv")
+```
+
+# Check inputs
+```{r check_inputs}
+match_order <- match(rownames(count_data), genes$gene_id)
+annotation <- genes[match_order, ]
+rm(genes)
+
+all.equal(rownames(count_data), annotation$gene_id)
+all.equal(colnames(count_data), (metadata$Sample_ID)) # counts columns match the sample IDs
+
+genes <- annotation
+```
+
+# Create DGE object
+```{r DGE_object}
+# create object
+dge <- DGEList(counts = count_data,
+               samples = metadata,
+               genes = genes)
+
+# Inspect
+table(dge$samples$group)
+table(dge$samples$Sample_ID)
+```
+
+# Set factors and colors 
+```{r factor_and_color_set}
+dge$samples$group <- factor(dge$samples$group, levels = c("control", "sepsis"))
+condition_colors <- c("gray", "green4")[dge$samples$group]
+
+dge$samples$sex <- factor(dge$samples$sex, levels = c("F", "M"))
+sex_colors <- c("purple", "orange")[dge$samples$sex]
+```
+
+# Raw CPM
+```{r raw_cpm}
+lcpm <- edgeR::cpm(dge$counts, log = TRUE)
+```
+
+# Raw MDS
+```{r raw_MDS}
+# Condition
+par(bg = 'white')
+plotMDS(
+  lcpm,
+  top = 500,
+  labels = dge$samples$Sample_ID,
+  cex = 1,
+  dim.plot = c(2,3),
+  plot = TRUE,
+  col = condition_colors
+)
+title(expression('Top 500 Genes - Raw (Log'[2] ~ 'CPM)'))
+saveToPDF(paste0("../../results/", results_folder, "/MDS/MDS_raw_",tissue, sex,".pdf"), width = 10, height = 6)
+```
+
+# JSD heatmap
+This portion won't display in the R Markdown pdf; the margins are too large.
+The pdf and png file can only be saved one at a time.
+```{r JSD, warning = FALSE, eval=FALSE}
+# save
+path <- (paste0("../../results/", results_folder, "/JSD/JSD_raw"))
+pdf(paste0(path,".pdf"), width = 10, height = 8, pointsize = 8)
+
+# set heatmap colors and names
+colors <- c("blue","skyblue","white") # set heatmap color scale
+colors <- colorRampPalette(colors)(100) # make it a gradient
+sample_group_color <- c("gray", "green4")[dge$samples$group]
+names <- paste(dge$samples$Sample_ID)
+
+# find JSD
+data <- JSD(t(edgeR::cpm(dge$counts)), est.prob = "empirical")
+colnames(data) <- names
+rownames(data) <- names
+round.data <- round(data, digits = 2) # round 2 decimal places
+
+# plot heatmap
+heatmap <- heatmap.2(
+  round.data,
+  trace = "none",
+  colCol = sample_group_color,
+  colRow = sample_group_color,
+  symm = TRUE,
+  col = colors,
+  cellnote = round.data,
+  notecex = 1,
+  dendrogram = "none",
+  notecol = "black",
+  key.title = "Color Key",
+  srtCol = 65,
+  margins = c(12,12),
+  keysize = 0.2)
+
+# clean up
+rm(data, round.data, colors, path, names)
+```
+
+# Remove mitochondrial genes
+```{r MT_genes}
+dim(dge) # inspect
+removeMT <- dge$genes$seqnames != "chrM"  # true when NOT MT
+table(removeMT) # inspect
+dge <- dge[removeMT,,keep.lib.sizes = FALSE]
+dim(dge)
+```
+
+# Keep only protein coding genes 
+```{r MT_genes}
+dim(dge)
+table(dge$genes$gene_type)
+removeMT <- dge$genes$gene_type == "protein_coding"  # true when NOT MT
+dge <- dge[removeMT,,keep.lib.sizes = FALSE]
+dim(dge)
+```
+
+# Library sizes
+```{r library}
+# before filtering
+L <- mean(dge$samples$lib.size) * 1e-6
+M <- median(dge$samples$lib.size) * 1e-6
+c(L, M)
+```
+
+# Filtering 
+The filterByExpr() function in the edgeR package determines which genes have a great enough count value to keep.  
+We will filter by group_sex.  
+```{r filter_counts}
+# Create group by sex
+dge$samples$group_Sex <- paste0(dge$samples$group, "_", dge$samples$sex)
+
+# first filter by expression
+dim(dge)
+keep.expr <-
+  filterByExpr(
+    dge,
+    group = dge$samples$group, # by disease groups
+    min.count = M, # min count of 1 CPM 
+  )
+dge.filtered <- dge[keep.expr, ,keep.lib.sizes = FALSE]
+dim(dge.filtered)
+table(dge.filtered$genes$gene_type)
+```
+
+# TMM
+For estimating relative RNA production levels from RNA-seq data. 
+The TMM method estimates scale factors between samples that can be incorporated 
+into currently used statistical methods for DE analysis.
+```{r TMM}
+# Now, method of trimmed mean of M-values (TMM)
+# Calculate scaling factors to convert raw library sizes into effective library sizes.
+dge.filtered.norm <- calcNormFactors(dge.filtered, method = "TMM")
+
+# norm factor summary
+summary(dge.filtered.norm$samples$norm.factors)
+normfactors <- (dge.filtered.norm$samples$norm.factors)
+```
+
+# Gene_id to gene_name
+Some of the gene_names are duplicated. Our counts matrix has rownames by gene_id which are not duplicated. Since we have now filtered and normalized we can check to see if duplicated gene_names still exist.  If none do, rename rows to gene_name.  If there are duplicates, handle the error and then rename columns.
+```{r gene_name}
+# check for duplication
+table(duplicated(dge.filtered.norm$genes$gene_name))
+
+dge.filtered.norm$genes <- dge.filtered.norm$genes %>%
+  group_by(gene_name) %>%
+  mutate(
+    is_duplicate = n() > 1,
+    new_gene_name = if_else(
+      is_duplicate,
+      # If duplicated, combine gene_name and gene_id
+      paste(gene_name, gene_id, sep = "_"),
+      # If not duplicated, keep the original gene_name
+      gene_name
+    )
+  ) %>%
+  ungroup() %>%
+  mutate(gene_name = new_gene_name) %>%
+  dplyr::select(-is_duplicate, -new_gene_name)
+
+# Check for duplication 
+table(duplicated(dge.filtered.norm$genes$gene_name))
+```
+
+# Clean up
+```{r cleanup}
+rm(count_data, lcpm, keep.expr, normfactors, removeMT, L, M, typeOfCount)
+```
+
+# Filtered CPM
+```{r filtered_lcpm}
+lcpm <- edgeR::cpm(dge.filtered.norm$counts, log = TRUE)
+lcpm_df <- as.data.frame(lcpm)
+lcpm_df$gene_id <- rownames(lcpm_df)
+lcpm_gene_names <- merge(genes, lcpm_df, by = "gene_id")
+write.table(lcpm_gene_names, paste0("../../results/", results_folder, "/counts/filtered_lcpm_gene_names_", tissue, sex,".txt"), sep= "\t", row.names = FALSE, quote=FALSE)
+
+cpm <- edgeR::cpm(dge.filtered.norm$counts, log = FALSE)
+cpm_df <- as.data.frame(cpm)
+cpm_df$gene_id <- rownames(cpm_df)
+cpm_gene_names <- merge(genes, cpm_df, by = "gene_id")
+write.table(cpm_gene_names, paste0("../../results/", results_folder, "/counts/filtered_cpm_gene_names_", tissue, sex,".txt"), sep= "\t", row.names = FALSE, quote=FALSE)
+```
+
+# Filtered MDS
+```{r filtered_MDS}
+# Condition
+par(bg = 'white')
+plotMDS(
+  lcpm,
+  top = 100,
+  labels = dge.filtered.norm$samples$Sample_ID,
+  cex = 1,
+  dim.plot = c(1,2),
+  plot = TRUE,
+  col = condition_colors
+)
+title(expression('Top 500 Genes - Filtered (Log'[2] ~ 'CPM)'))
+saveToPDF(paste0("../../results/", results_folder, "/MDS/MDS_filtered_", tissue, sex,".pdf"), width = 6, height = 6)
+```
+
+# Density plot
+Density plots of log - intensity distribution of each library can be superposed on a single graph for a better comparison between libraries and for identification of libraries with weird distribution. 
+```{r density_plots}
+# set graphical parameter
+par(mfrow = c(1,3))
+
+# Normalize data for library size and expression intensity
+log2cpm.tech <- edgeR::cpm(dge, log = TRUE)
+log2cpm.filtered <- edgeR::cpm(dge.filtered, log = TRUE)
+log2cpm.norm <- edgeR::cpm(dge.filtered.norm, log = TRUE)
+
+# set colors
+colors <- condition_colors
+nsamples <- ncol(dge)
+
+# First, plot the first column of the log2cpm.tech density
+plot(density(log2cpm.tech[,1]), col = colors[1], lwd = 2, ylim = c(0,0.5), 
+     las = 2, main = "A. Raw", xlab = expression('Log'[2]~CPM))
+# For each sample plot the lcpm density
+for (i in 1:nsamples){
+  den <- density(log2cpm.tech[,i]) #subset each column
+  lines(den$x, den$y, col = colors[i], lwd = 2) 
+}
+
+# Second, plot log2cpm.filtered
+plot(density(log2cpm.filtered[,1]), col = colors[1], lwd = 2, ylim = c(0,0.5), 
+     las = 2, main = "B. Filtered", xlab = expression('Log'[2]~CPM))
+for (i in 2:nsamples) {
+  den <- density(log2cpm.filtered[,i])
+  lines(den$x, den$y, col = colors[i], lwd = 2)
+}
+
+# Third, plot log2cpm.norm
+plot(density(log2cpm.norm[,1]), col = colors[1], lwd = 2, ylim = c(0,0.5), 
+     las = 2, main = "C. TMM", xlab = expression('Log'[2]~CPM))
+for (i in 2:nsamples) {
+  den <- density(log2cpm.norm[,i])
+  lines(den$x, den$y, col = colors[i], lwd = 2)
+}
+
+# save
+path <- (paste0("../../results/", results_folder, "/library/gene_density_", tissue, sex))
+saveToPDF(paste0(path, ".pdf"), width = 7, height = 5)
+```
+
+# Boxplots
+```{r boxplots}
+# set parameters
+par(mfrow = c(1, 3))
+
+# First look at dge.tech
+boxplot(
+  log2cpm.tech,
+  main = "A. Raw",
+  xlab = "",
+  ylab = expression('Counts per gene (Log'[2] ~ 'CPM)'),
+  axes = FALSE,
+  col = colors
+)
+axis(2) # 2 = left
+axis(
+  1,
+  # 1 = below
+  at = 1:nsamples,
+  # points at which tick-marks should be drawn
+  labels = colnames(log2cpm.tech),
+  las = 2,
+  cex.axis = 0.8 # size of axis
+)
+
+# Second, look at dge.filtered
+boxplot(
+  log2cpm.filtered,
+  main = "B. Filtered",
+  xlab = "",
+  ylab = expression('Counts per gene (Log'[2] ~ 'CPM)'),
+  axes = FALSE,
+  col = colors
+)
+axis(2)
+axis(
+  1,
+  at = 1:nsamples,
+  labels = colnames(log2cpm.filtered),
+  las = 2,
+  cex.axis = 0.8
+)
+
+# Third, look at dge.norm
+boxplot(
+  log2cpm.norm,
+  main = "C. Normalized",
+  xlab = "",
+  ylab = expression('Counts per gene (Log'[2] ~ 'CPM)'),
+  axes = FALSE,
+  col = colors
+)
+axis(2)
+axis(
+  1,
+  at = 1:nsamples,
+  labels = colnames(log2cpm.norm),
+  las = 2,
+  cex.axis = 0.8
+)
+path <- (paste0("../../results/", results_folder, "/library/lcpm_boxplots_", tissue, sex))
+saveToPDF(paste0(path, ".pdf"), width = 11, height = 5)
+
+# clean up
+rm(log2cpm.tech, log2cpm.norm, log2cpm.filtered, den, colors, nsamples, path, i)
+```
+
+
+```{r}
+rm(dge, dge.filtered, lcpm)
+```
+
+# Voom 
+voom transform counts to use for variancePartition  
+```{r voom, warning=FALSE}
+formula <- (~ 0 + group)
+counts <- as.data.frame(dge.filtered.norm$counts)
+info <- as.data.frame(dge.filtered.norm$samples)
+voom_with_weights <-
+  variancePartition::voomWithDreamWeights(
+    counts = counts,
+    formula = formula,
+    data = info,
+    BPPARAM = BiocParallel::SnowParam(8),
+    plot = TRUE
+  )
+path <- paste0(paste0("../../results/", results_folder, "/voom/voom_raw_", tissue, sex))
+saveToPDF(paste0(path, ".pdf"), width = 6, height = 4)
+voomCounts <- voom_with_weights$E
+rm(voom_with_weights, formula)
+```
+
+
+
+# Fit variance 
+variancePartition quantifies and interprets multiple sources of biological and technical variation in gene expression experiments. The package a linear mixed model to quantify variation in gene expression attributable to individual, tissue, time point, or technical variables.
+
+```{r varpart}
+form_varPart <- ~ (1|group) + PMI + Expired.Age + Last.BMI.Score + (1|lane)
+# fit model and extract variance percents
+rownames(info) <- info$Sample_ID
+sample_order <- colnames(voomCounts)
+sorted_info <- info[match(sample_order, info$Sample_ID), ]
+sorted_info$lane <- as.character(sorted_info$lane)
+```
+
+```{r varPart_run, eval=FALSE}
+varPart <- fitExtractVarPartModel(voomCounts, form_varPart, sorted_info)
+```
+
+# Plot VarPart
+```{r plot_varPart, eval=FALSE}
+plotVarPart(sortCols(varPart), label.angle = 80)
+saveToPDF(paste0("../../results/", results_folder, "/variance/variance_partition_violins_", tissue, sex,".pdf"), width = 8.5, height = 5)
+
+varPart$gene_id <- rownames(varPart)
+# merge with gene information to get gene names for gene_id
+variance_explained <- merge(varPart, genes, by = "gene_id")
+
+write.table(variance_explained, paste0("../../results/", results_folder, "/variance/variance_explained_", tissue, sex,".tsv"),sep = "\t", quote = FALSE, row.names = FALSE)
+```
+
+# CCA 
+Canonical Correlation Analysis
+```{r}
+form <- ~ group + PMI + Expired.Age + Last.BMI.Score + lane
+# Compute Canonical Correlation Analysis (CCA) # between all pairs of variables
+# returns absolute correlation value
+C = canCorPairs(form, sorted_info)
+# Plot correlation matrix
+plotCorrMatrix( C )
+saveToPDF(paste0("../../results/", results_folder, "/variance/CCA_with_project_", tissue, sex,".pdf"), width = 8, height = 8)
+
+rm(form, C)
+```
+
+
+# Design matrix
+```{r design_matrix}
+df <- as.matrix(sorted_info)
+design <- model.matrix( ~ 0 + dge.filtered.norm$samples$group + dge.filtered.norm$samples$PMI + dge.filtered.norm$samples$Expired.Age + dge.filtered.norm$samples$Last.BMI.Score + dge.filtered.norm$samples$lane)
+colnames(design) <- c("control", "sepsis", "PMI", "Age", "BMI","lane")
+# Inspect
+design
+```
+
+# Voom
+When the library sizes are quite variable between samples, then the voom approach is theoretically more powerful than limma-trend. 
+The voom method estimates the mean-variance relationship of the log-counts.
+Generates a precision weight for each observation and enters these into the limma empirical Bayes analysis pipeline.
+```{r voom_covariates}
+v <- voomWithQualityWeights(
+  dge.filtered.norm,  # our DGEList object
+  design, # our design matrix
+  plot = TRUE # should mean-variance trend & sample-specific weights be displayed?
+  )
+```
+
+# Contrast plot
+```{r contrasts}
+# fits linear model for each gene given a series of arrays
+fit <- lmFit(v, design) #
+#coef.fit <- fit$coefficients
+
+contrasts <- makeContrasts(
+  sepsis_vs_control = sepsis - control,
+  levels = colnames(design))
+head(contrasts)
+
+# save contrast names
+allComparisons <- colnames(contrasts)
+allComparisons # check
+
+# run contrast analysis
+vfit <- contrasts.fit(fit, contrasts = contrasts)
+
+# Compute differential expression based on the empirical Bayes moderation of the standard errors towards a common value.
+# The logCPM values can then be used in any standard limma pipeline, using the trend=TRUE
+veBayesFit <- eBayes(vfit, trend = TRUE, robust=TRUE)
+plotSA(veBayesFit, main = "Final Model: Mean-variance Trend")
+
+#rm(design, fit, coef.fit, contrasts, vfit)
+```
+
+# DEGs summary
+```{r DGE_summary}
+qval <- 0.05
+lfc.cutoff <- 0.25
+
+sumTable <- 
+  summary(decideTests(
+    veBayesFit,  # object
+    adjust.method = "BH", # by default the method = "separate"
+    p.value = qval,
+    lfc = lfc.cutoff  # numeric, minimum absolute log2-fold change required
+  ))
+
+print(paste0(" q < ", qval, " & absolute log2-fold change > ", lfc.cutoff))
+sumTable
+write.table(sumTable, paste0("../../results/", results_folder, "/DEGs/DEGs_summary_q", qval,"_log2FC", lfc.cutoff, "_", tissue, sex,".txt"), quote = FALSE, sep = "\t")
+genes_relevant <- dge.filtered.norm$genes
+
+#rm(sumTable)
+```
+
+# DGE Check 
+```{r DGE_check, eval=FALSE}
+sepsis_vs_control <- topTable(
+  veBayesFit, 
+  coef = "sepsis_vs_control",  
+  n = Inf, 
+  p.value = 1,
+  lfc = 0, 
+  sort.by = "P", 
+  genelist = dge.filtered.norm$genes, 
+  confint = TRUE # column of confidence interval 
+    )
+```
+
+# Output DEG tables
+```{r output_DEG_tables}
+coef <- 1
+
+for (i in allComparisons) {
+  vTopTableAll <- topTable(
+    veBayesFit, 
+    coef = coef,  
+    n = Inf, 
+    p.value = 1,
+    lfc = 0, 
+    sort.by = "P", 
+    genelist = genes_relevant, 
+    confint = TRUE # column of confidence interval 
+    )
+    saveRDS(vTopTableAll, file = 
+            paste0("../../rObjects/gene_tables/", i,"_gene_table_", tissue, sex,".rds"))
+  path <- paste0("../../results/", results_folder, "/DEGs/", i, "_q1.00_", tissue, sex,".txt", sep = "") 
+  write.table(vTopTableAll, path, sep = "\t", row.names = FALSE, quote = FALSE)
+  
+  # p < 0.05, log2fc > 1
+  vTopTableSig <-
+    topTable( 
+      veBayesFit,  
+      coef = coef,  
+      n = Inf, 
+      p.value = qval,
+      lfc = lfc.cutoff,
+      genelist = genes_relevant, 
+      confint = TRUE)
+  path <- paste0("../../results/", results_folder, "/DEGs/", i, "_q", qval, "_lfc", lfc.cutoff,"_", tissue, sex,".txt", sep = "") 
+  write.table(vTopTableSig, path, sep = "\t", row.names = FALSE, quote = FALSE)
+  # increment 
+  coef <- coef + 1
+}
+remove(coef, vTopTableAll, vTopTableSig)
+```
+
+# PCA
+Principal component analysis, or PCA, is a dimensionality reduction method that is often used to reduce the dimensionality of large data sets, by transforming a large set of variables into a smaller one that still contains most of the information in the large set.
+```{r PCA}
+voomCounts <- v$E
+# Setting the N of genes to use
+ntop = length(dge.filtered.norm$genes$gene_id)
+# Sorting by the coefficient of variance
+means <- rowMeans(voomCounts)
+Pvars <- rowVars(voomCounts, useNames = TRUE)
+cv2 <- Pvars / means ^ 2
+select <- order(cv2, decreasing = TRUE)[seq_len(min(ntop, length(cv2)))]
+highly_variable_exp <- ((voomCounts)[select,])
+dim(highly_variable_exp)
+
+# Running PCA
+pca_exp <- prcomp(t(highly_variable_exp), scale = F, center = T)
+# scale a logical value indicating whether the variables should be scaled to have unit variance before the analysis takes place.
+# a logical value indicating whether the variables should be shifted to be zero centered.
+
+# Dataframe with the first 8 PCs
+dim1_10 <- data.frame(pca_exp$x[, 1:8])
+# Adding metadata
+dim1_10$sample <- rownames(dim1_10)
+sorted_info$sample <- sorted_info$Sample_ID
+pcaWithMetadata <- merge(dim1_10, sorted_info, by = "sample", all = TRUE)
+#pcaWithMetadata$group <- pcaWithMetadata$condition
+
+# Plotting
+ggplot(data = pcaWithMetadata, aes(x = PC1, y = PC2, shape = group, color = group)) +
+  geom_point(size = 2.5) +
+  geom_text(aes(label = Sample_ID), hjust = -0.1, vjust = 0.5, size = 3) + # Added layer
+  theme_bw() 
+saveToPDF(paste0("../../results/", results_folder, "/PCA/PCA_dim1&2", sex, ".pdf"), width = 8, height = 5)
+
+ggplot(data = pcaWithMetadata, aes(x = PC2, y = PC3, shape = group, color = group)) +
+  geom_point(size = 2.5) +
+  geom_text(aes(label = Sample_ID), hjust = -0.1, vjust = 0.5, size = 3) + # Added layer
+  theme_bw() 
+saveToPDF(paste0("../../results/", results_folder, "/PCA/PCA_dim2&3", sex, ".pdf"), width = 8, height = 5)
+
+```
+
+
+# Volcano plots
+```{r volcano, warning=FALSE}
+negFC <- -.25
+posFC <- 0.25
+for (i in allComparisons) {
+  group1_vs_group2 <-
+    read.delim(paste0("../../results/", results_folder, "/DEGs/", i,"_q1.00_", tissue, sex,".txt"))
+    i <- gsub("_", " ", i)
+    if (!any(group1_vs_group2$adj.P.Val < qval, na.rm = TRUE)) {
+    # If there are no significant DEGs, create a volcano plot with all points in gray
+    p <- ggplot(data = group1_vs_group2, aes(x = logFC, y = -log10(P.Value))) +
+      geom_point(alpha = 0.8, size = 2, color = "gray") +
+      theme_bw() +
+      theme(legend.position = "none",
+            axis.title.x = element_text(size = 10),
+            axis.text.x = element_text(size = 10),
+            axis.title.y = element_text(size = 10),
+            axis.text.y = element_text(size = 10)) +
+      geom_vline(xintercept = negFC,
+                 colour = "#000000",
+                 linetype = "dashed") +
+      geom_vline(xintercept = posFC,
+                 colour = "#000000",
+                 linetype = "dashed") +
+      labs(x = expression(log[2](FC)),
+           y = expression(-log[10] ~ "(" ~ italic("p") ~ "-value)")) +
+      ggtitle(paste0(i, "\nNo significant DEGs found"))
+    i <- gsub(" ", "_", i)
+    pdf(paste0("../../results/", results_folder, "/volcano/", i, sex,".pdf"), height = 6, width = 6)
+    print(p)
+    dev.off()
+  } else {
+  color_values <- vector()
+  max <- nrow(group1_vs_group2)
+  for (row in 1:max) {
+    if (group1_vs_group2$adj.P.Val[row] < qval) {
+      if (group1_vs_group2$logFC [row] > posFC) {
+        color_values <- c(color_values, 1)
+      }
+      else if (group1_vs_group2$logFC[row] < negFC) {
+        color_values <- c(color_values, 2)
+      }
+      else {
+        color_values <- c(color_values, 3)
+      }
+    }
+    else{
+      color_values <- c(color_values, 3)
+    }
+  }
+  group1_vs_group2$color_adjpval_0.05 <- factor(color_values)
+  data <- group1_vs_group2
+  # plot only if there are DEGs with p_val_adj < 0.05
+  num <- subset(data, (adj.P.Val < qval & logFC < negFC)  | (adj.P.Val < qval & logFC > posFC ))
+  num <- nrow(num)
+  if (num != 0) {
+    up <- data[data$color_adjpval_0.05 == 1,]
+    LCN2 <- subset(up, gene_name == "LCN2")
+    up10 <- up[1:10,]
+    upFold <- subset(up, logFC > posFC)
+    upFold <- upFold[!(upFold$gene_name %in% up10$gene_name),]
+    down <- data[data$color_adjpval_0.05 == 2,]
+    down10 <- down[1:10,]
+    downFold <- subset(down, logFC < negFC)
+    downFold <- downFold[!(downFold$gene_name %in% down10$gene_name),]
+    if (!1 %in% unique(data$color_adjpval_0.05)) {
+      my_colors <- c("blue", "gray")
+    } else if (!2 %in% unique(data$color_adjpval_0.05)) {
+      my_colors <- c("red", "gray")
+    } else if (!1 %in% unique(data$color_adjpval_0.05) &&
+               !2 %in% unique(data$color_adjpval_0.05)) {
+      my_colors <- c("gray")
+    } else {
+      my_colors <- c("red", "blue", "gray")
+    }
+    hadjpval <- (-log10(max(data$P.Value[data$adj.P.Val < qval],
+                            na.rm = TRUE)))
+    negFC <- c(-.25)
+    posFC <- c(0.25) 
+    p <-
+      ggplot(data = data,
+             aes(
+               x = logFC,
+               y = -log10(P.Value),
+               color = color_adjpval_0.05
+             )) +
+      geom_point(alpha = 0.8, size = 1) +
+      theme_bw() +
+      theme(legend.position = "none") +
+      scale_color_manual(values = my_colors) +
+      labs(
+        title = "",
+        x = expression(log[2](FC)),
+        y = expression(-log[10] ~ "(" ~ italic("p") ~ "-value)")
+      )  +
+      geom_hline(yintercept = hadjpval,
+                 #  horizontal line
+                 colour = "#000000",
+                 linetype = "dashed") +
+      geom_vline(xintercept = negFC,
+                 #  horizontal line
+                 colour = "#000000",
+                 linetype = "dashed") +
+      geom_vline(xintercept = posFC,
+                 #  horizontal line
+                 colour = "#000000",
+                 linetype = "dashed") +
+      ggtitle(paste0(i, "\nq < ", qval, " & |log2FC| > ", lfc.cutoff)) + # 
+      geom_text_repel(
+        data = up10,
+        aes(
+          x = logFC,
+          y = -log10(P.Value),
+          label = gene_name
+        ),
+        color = "maroon",
+        fontface = "italic",
+        size = 3,
+        max.overlaps = getOption("ggrepel.max.overlaps", default = 10)
+      ) +
+      geom_text_repel(
+        data = LCN2,
+        aes(
+          x = logFC,
+          y = -log10(P.Value),
+          label = gene_name
+        ),
+        color = "maroon",
+        fontface = "italic",
+        size = 3,
+        max.overlaps = getOption("ggrepel.max.overlaps", default = 10)
+      ) +
+      geom_text_repel(
+        data = upFold,
+        aes(
+          x = logFC,
+          y = -log10(P.Value),
+          label = gene_name
+        ),
+        color = "maroon",
+        fontface = "italic",
+        size = 3,
+        max.overlaps = getOption("ggrepel.max.overlaps", default = 10)
+      ) +
+      geom_text_repel(
+        data = down10,
+        aes(
+          x = logFC,
+          y = -log10(P.Value),
+          label = gene_name
+        ),
+        color = "navyblue",
+        fontface = "italic",
+        size = 3,
+        max.overlaps = getOption("ggrepel.max.overlaps", default = 10)
+      ) +
+      geom_text_repel(
+        data = downFold,
+        aes(
+          x = logFC,
+          y = -log10(P.Value),
+          label = gene_name
+        ),
+        color = "navyblue",
+        fontface = "italic",
+        size = 3,
+        max.overlaps = getOption("ggrepel.max.overlaps", default = 10)
+      )
+    p
+    i <- gsub(" ", "_", i)
+    # save
+    path <-paste0("../../results/", results_folder, "/volcano/",i, sex)
+    pdf(paste0(path, ".pdf"),
+        height = 8,
+        width = 8)
+    print(p)
+    dev.off()
+    
+    print(paste("i =", i))
+  }
+  } 
+}
+```
+
+```{r cleanup}
+# clean up
+remove(up, up10, upFold, group1_vs_group2, downFold, down10, data, p, my_colors)
+```
+
+# Make excel table
+```{r excel}
+# first read in the files
+for (i in allComparisons) {
+  filepath <- paste0("../../results/", results_folder, "/DEGs/", i,"_q1.00_", tissue, sex,".txt")
+  assign(paste0(i),
+         read.delim(filepath, header = TRUE, sep = "\t",stringsAsFactors = FALSE))
+}
+
+allComparisons
+list_of_datasets <- list(
+  "sepsis_vs_control" = sepsis_vs_control)
+write.xlsx(list_of_datasets, file = paste0("../../results/", results_folder, "/DEGs/DEGs.q1.00_", tissue, sex,".xlsx"))
+```
+
+# Interactive 
+```{r}
+BiocManager::install("Glimma")
+library(Glimma)
+rownames(veBayesFit$p.value) <- dge.filtered.norm$genes$gene_name
+rownames(veBayesFit$coefficients) <- dge.filtered.norm$genes$gene_name
+rownames(veBayesFit$stdev.unscaled) <- dge.filtered.norm$genes$gene_name
+#rownames(veBayesFit$cov.coefficients) <- dge.filtered.norm$genes$gene_name
+rownames(veBayesFit$t) <- dge.filtered.norm$genes$gene_name
+rownames(veBayesFit$lods) <- dge.filtered.norm$genes$gene_name
+
+glimmaVolcano(veBayesFit, dge = dge.filtered.norm, groups = dge.filtered.norm$samples$group)
+
+#sessionInfo()
+```
+

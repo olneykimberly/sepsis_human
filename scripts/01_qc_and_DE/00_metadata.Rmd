@@ -1,0 +1,95 @@
+---
+title: "Metadata  - human sepsis mRNA"
+author: "Kimberly Olney, PhD"
+date: "October 20th 2025"
+output:
+  pdf_document: default
+params:
+  project: human_sepsis
+---
+
+Compare sepsis versus controls. Brain and kidney. 
+
+# Set up working enivornment
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = ".")
+getwd()
+```
+
+```{r libraries, message=FALSE, warning=FALSE}
+source("/tgen_labs/jfryer/kolney/sepsis_human/scripts/file_paths_and_colours.R")
+projectID <- "human_sepsis"
+metadata_all <- read.delim("/tgen_labs/jfryer/kolney/sepsis_human/metadata.tsv", header = TRUE, sep = "\t")
+metadata_all <- metadata_all %>% # samples_to_keep
+  mutate(
+    sex_chr = if_else(sex == "F", "XX", "XY")
+  )
+metadata_all$Sample_ID <- paste0(metadata_all$tissue, "_", 
+                             metadata_all$group, "_", 
+                             metadata_all$sex, "_", 
+                             metadata_all$unique_id)
+```
+
+# Clinical data
+```{r}
+# Create the bar plot for banner_case_id counts
+case_count_plot <- ggplot(metadata_all, aes(x = banner_case_id)) +
+  geom_bar(fill = "#3a86ff") + 
+  geom_text(
+    stat = 'count',
+    aes(label = after_stat(count)),
+    hjust = -0.2, # Position the label slightly outside the bar
+    size = 3.5
+  ) +
+  ylab("Count of Samples") +
+  xlab("Banner Case ID") +
+  ggtitle("Distribution of Samples per Banner Case ID") +
+  theme_minimal() +
+  theme(
+    axis.ticks.x = element_blank(),
+    panel.grid.major.y = element_blank()
+  )
+case_count_plot
+
+total_sex_percent <- metadata %>% 
+  group_by(sex) %>%
+  dplyr::count() %>% 
+  ungroup(sex) %>% 
+  mutate(perc = `n` / sum(`n`)) %>% 
+  arrange(perc) %>%
+  mutate(labels = scales::percent(perc))
+
+bar_facet <- ggplot(metadata_all, aes(group, after_stat(count), fill = group)) +
+  geom_bar() +
+  theme_bw() +
+  xlab("Disease group") +
+  ggtitle("Bulk RNAseq sample count by disease group (Brain and Kidney)") +
+  geom_text(
+    stat = 'count',
+    aes(label = after_stat(count)),
+    vjust = 1.6,
+    color = "white",
+    size = 3.5
+  ) +
+  facet_wrap(~tissue) +
+  scale_fill_manual(values = color_disease)
+bar_facet
+
+case_ids_to_keep <- metadata %>%
+  # Group by case ID
+  group_by(banner_case_id) %>%
+  # Check if both tissues are present within that case group
+  summarise(
+    has_brain = any(tissue == "Brain"),
+    has_kidney = any(tissue == "Kidney"),
+    .groups = 'drop' # Drop grouping structure after summarisation
+  ) %>%
+  # Filter to only keep cases where both conditions are TRUE
+  filter(has_brain & has_kidney) %>%
+  # Extract the vector of unique banner_case_id values
+  pull(banner_case_id)
+
+# 2. Filter the original metadata using the identified case IDs
+metadata_filtered <- metadata %>%
+  filter(banner_case_id %in% case_ids_to_keep)
+```
