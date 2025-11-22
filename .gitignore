@@ -4,3 +4,5 @@
 .Ruserdata
 scripts/00_preprocessing/slurm*
 scripts/00_preprocessing/.snakemake/*
+scripts/00_preprocessing/.snakemake/slurm_logs*
+/scripts/00_preprocessing/.snakemake/slurm_logs*
