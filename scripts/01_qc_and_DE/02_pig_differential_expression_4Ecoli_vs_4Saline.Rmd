@@ -17,6 +17,7 @@ getwd()
 ```{r libraries, message=FALSE, warning=FALSE}
 source("/tgen_labs/jfryer/kolney/sepsis_human/scripts/file_paths_and_colours_pigs.R")
 tissue <- "Kidney"
+projectID <- "pigs"
 ```
 
 # Create sub directories
@@ -407,7 +408,7 @@ rm(voom_with_weights, formula)
 # Fit variance 
 variancePartition quantifies and interprets multiple sources of biological and technical variation in gene expression experiments. The package a linear mixed model to quantify variation in gene expression attributable to individual, tissue, time point, or technical variables.
 ```{r varpart}
-form_varPart <- ~ (1|condition) + duration_min + age_days + end_heart_rate + end_temp
+form_varPart <- ~ (1|condition) + duration_min + age_days + end_heart_rate + end_temp + RIN
 # fit model and extract variance percents
 rownames(info) <- info$pig_id
 varPart <- fitExtractVarPartModel(voomCounts, form_varPart, info)
@@ -428,7 +429,7 @@ write.table(variance_explained, paste0("../../results/", results_folder, "/varia
 # CCA 
 Canonical Correlation Analysis
 ```{r}
-form <- ~ condition_dose  + duration_min + age_days + end_heart_rate + end_temp
+form <- ~ condition_dose  + duration_min + age_days + end_heart_rate + end_temp + RIN
 # Compute Canonical Correlation Analysis (CCA) # between all pairs of variables
 # returns absolute correlation value
 C = canCorPairs(form, info)
@@ -437,6 +438,13 @@ plotCorrMatrix( C )
 saveToPDF(paste0("../../results/", results_folder, "/variance/CCA_", tissue, ".pdf"), width = 8, height = 8)
 
 rm(form, C)
+```
+
+# Save
+```{r}
+write.table(info, paste0("../../rObjects/", projectID, "_sorted_info.txt"), sep = "\t")
+saveRDS(varPart, paste0("../../rObjects/", projectID, "_varPart.rds"))
+saveRDS(dge.filtered.norm, paste0("../../rObjects/", projectID, "_dge.filtered.norm.rds"))
 ```
 
 # Design matrix
@@ -458,6 +466,7 @@ v <- voomWithQualityWeights(
   #var.group = c(dge.filtered.norm$samples$group),# our design matrix
   plot = TRUE # should mean-variance trend & sample-specific weights be displayed?
   )
+saveRDS(v,  paste0("../../rObjects/", projectID, "_voom_counts.rds"))
 ```
 
 # Contrast plot

@@ -484,12 +484,13 @@ rm(voom_with_weights, formula)
 variancePartition quantifies and interprets multiple sources of biological and technical variation in gene expression experiments. The package a linear mixed model to quantify variation in gene expression attributable to individual, tissue, time point, or technical variables.
 
 ```{r varpart}
-form_varPart <- ~ (1|group) +  (1|sex) + PMI + Expired.Age + Last.BMI.Score + (1|lane)
+form_varPart <- ~ (1|group) +  (1|sex) + PMI + Expired.Age + Last.BMI.Score + RIN + (1|lane)
 # fit model and extract variance percents
 rownames(info) <- info$Sample_ID
 sample_order <- colnames(voomCounts)
 sorted_info <- info[match(sample_order, info$Sample_ID), ]
 sorted_info$lane <- as.character(sorted_info$lane)
+sorted_info$RIN <- as.numeric(sorted_info$RIN)
 ```
 
 ```{r varPart_run, eval=FALSE}
@@ -511,7 +512,7 @@ write.table(variance_explained, paste0("../../results/", results_folder, "/varia
 # CCA 
 Canonical Correlation Analysis
 ```{r}
-form <- ~ group + PMI + Expired.Age + Last.BMI.Score + lane
+form <- ~ group + PMI + Expired.Age + Last.BMI.Score + lane + RIN
 # Compute Canonical Correlation Analysis (CCA) # between all pairs of variables
 # returns absolute correlation value
 C = canCorPairs(form, sorted_info)
@@ -520,6 +521,13 @@ plotCorrMatrix( C )
 saveToPDF(paste0("../../results/", results_folder, "/variance/CCA_with_project", tissue, ".pdf"), width = 8, height = 8)
 
 rm(form, C)
+```
+
+# Save
+```{r}
+write.table(sorted_info, paste0("../../rObjects/", projectID, "_sorted_info.txt"), sep = "\t")
+saveRDS(varPart, paste0("../../rObjects/", projectID, "_varPart.rds"))
+saveRDS(dge.filtered.norm, paste0("../../rObjects/", projectID, "_dge.filtered.norm.rds"))
 ```
 
 
@@ -542,6 +550,7 @@ v <- voomWithQualityWeights(
   design, # our design matrix
   plot = TRUE # should mean-variance trend & sample-specific weights be displayed?
   )
+saveRDS(v,  paste0("../../rObjects/", projectID, "_voom_counts.rds"))
 ```
 
 # Contrast plot

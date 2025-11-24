@@ -1,0 +1,950 @@
+---
+title: "Correlation DEGs"
+author: "Kimberly Olney, PhD"
+date: "October 20th 2025"
+output:
+  pdf_document: default
+params:
+  project: sepsis
+---
+
+# Set up working enivornment
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = ".")
+getwd()
+```
+
+```{r libraries, message=FALSE, warning=FALSE}
+source("/tgen_labs/jfryer/kolney/sepsis_human/scripts/file_paths_and_colours_pigs.R")
+rm(kidney_metadata, metadata_extra)
+metadata_pigs <- metadata
+metadata_pigs$group <- factor(metadata_pigs$group, levels = c("Saline", "Ecoli"))
+
+source("/tgen_labs/jfryer/kolney/sepsis_human/scripts/file_paths_and_colours_human.R")
+tissue <- "Kidney"
+metadata <- subset(metadata, tissue == "Kidney")
+metadata_human <- metadata
+rm(metadata)
+projectID <- "human_and_pig"
+library(readxl)
+```
+
+
+# Sample Count
+### human
+```{r human}
+human_bar_plot <- ggplot(metadata_human, aes(group, after_stat(count), fill = group)) +
+  geom_bar() +
+  theme_bw() +
+  xlab("Disease group") +
+  ggtitle("Human sample count") +
+  geom_text(
+    stat = 'count',
+    aes(label = after_stat(count)),
+    vjust = 1.6,
+    color = "white",
+    size = 3.5
+  ) +
+  scale_fill_manual(values = color_disease_human) +
+  scale_y_continuous(limits = c(0, 18)) +
+    theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    legend.position = "none",
+    plot.title = element_text(size = 8)    
+  )
+human_bar_plot
+```
+### pig
+```{r pig}
+pig_bar_plot <- ggplot(metadata_pigs, aes(group, after_stat(count), fill = group)) +
+  geom_bar() +
+  theme_bw() +
+  xlab("Disease group") +
+  ggtitle("Pig sample count") +
+  geom_text(
+    stat = 'count',
+    aes(label = after_stat(count)),
+    vjust = 1.6,
+    color = "white",
+    size = 3.5
+  ) +
+  scale_fill_manual(values = color_disease_pig) +
+  scale_y_continuous(limits = c(0, 7)) +
+    theme(
+    axis.title.x = element_blank(),
+    axis.text.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    legend.position = "none",
+    plot.title = element_text(size = 8)    
+  )
+pig_bar_plot
+```
+
+
+# Variance & CCA
+
+### human 
+read in data
+```{r human}
+projectID <- "human_sepsis"
+results_folder <- "human_kidney_both_sexes"
+
+sorted_info_human  <- read.delim(paste0("../../rObjects/", projectID, "_sorted_info.txt"), sep = "\t")
+dge.filtered.norm_human <- readRDS(paste0("../../rObjects/", projectID, "_dge.filtered.norm.rds"))
+voom_counts_human <- readRDS(paste0("../../rObjects/", projectID, "_voom_counts.rds"))
+
+varPart_human <- readRDS(paste0("../../rObjects/", projectID, "_varPart.rds"))
+varPart_human <- subset(varPart_human, select = -c(gene_id))
+colnames(varPart_human) <- c("group", "lane", "sex", "PMI", "age", "BMI", "RIN", "Residuals")
+```
+
+variance
+```{r variance}
+var_human <- plotVarPart(sortCols(varPart_human), label.angle = 25) + 
+  theme(
+    axis.title.x = element_text(size = 8),
+    axis.text.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    legend.position = "none",
+    plot.title = element_text(size = 8), 
+    plot.margin = margin(5.5,5.5,-2,5.5)
+  ) +  ggtitle("Human percentage of variance explained")
+```
+
+CCA
+```{r CCA}
+form <- ~ group + PMI + age + BMI + lane + RIN + sex 
+library(dplyr)
+sorted_info_human <- sorted_info_human %>%
+  dplyr::rename(age = Expired.Age, BMI = Last.BMI.Score)
+C = canCorPairs(form, sorted_info_human)
+
+# produce plot
+CCA_human <- plotCorrMatrix_gg(C, title = "Human Canonical Correlation Analysis (CCA)",
+                       reorder = FALSE, show_values = TRUE, value_digits = 2)
+
+# then add your theme changes
+CCA_human <- CCA_human + theme_bw() + theme(
+    axis.title.x = element_text(size = 8),
+    axis.text.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    legend.position = "none",
+    plot.title = element_text(size = 8)
+  )
+```
+
+PCA
+```{r PCA}
+voomCounts <- voom_counts_human$E
+# Setting the N of genes to use
+ntop = length(dge.filtered.norm_human$genes$gene_id)
+# Sorting by the coefficient of variance
+means <- rowMeans(voomCounts)
+Pvars <- rowVars(voomCounts, useNames = TRUE)
+cv2 <- Pvars / means ^ 2
+select <- order(cv2, decreasing = TRUE)[seq_len(min(ntop, length(cv2)))]
+highly_variable_exp <- ((voomCounts)[select,])
+dim(highly_variable_exp)
+
+# Running PCA
+pca_exp <- prcomp(t(highly_variable_exp), scale = F, center = T)
+dim1_10 <- data.frame(pca_exp$x[, 1:8])
+dim1_10$sample <- rownames(dim1_10)
+sorted_info_human$sample <- sorted_info_human$Sample_ID
+pcaWithMetadata <- merge(dim1_10, sorted_info_human, by = "sample", all = TRUE)
+
+PCA_human <- ggplot(data = pcaWithMetadata, aes(x = PC1, y = PC2, shape = group, color = group)) +
+  geom_point(size = 2.5) +
+  geom_text(aes(label = group), hjust = -0.3, vjust = 1, size = 3) + # Added layer
+  theme_bw() +
+  theme(
+    axis.title.x = element_text(size = 8),
+    axis.text.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    legend.position = "none",
+    plot.title = element_text(size = 8)
+  ) + 
+  scale_color_manual(values = c("gray50", "brown4")) +
+  ggtitle("Human PCA")
+```
+
+### Figure human combined
+```{r figure1_combined}
+# Option 2
+figure_human <-
+  ggarrange(
+    human_bar_plot,
+    PCA_human,
+    CCA_human,
+    var_human,
+    ncol = 2,
+    nrow = 2,
+    widths = c(0.75, 1, 1, 1.5), 
+   # heights = c(1,1.5),
+    labels = c("A","B", "C", "D"), 
+  font.label = list(size = 10)
+    )
+figure_human
+path <- paste0("../../manuscript_figures/Figure_human_count_pca")
+saveToPDF(paste0(path, ".pdf"), width = 7, height = 4.5)
+```
+
+
+
+### pigs 
+read in data
+```{r pigs}
+projectID <- "pigs"
+results_folder <- "pigs_kidney"
+
+sorted_info_pigs  <- read.delim(paste0("../../rObjects/", projectID, "_sorted_info.txt"), sep = "\t")
+dge.filtered.norm_pigs <- readRDS(paste0("../../rObjects/", projectID, "_dge.filtered.norm.rds"))
+voom_counts_pigs <- readRDS(paste0("../../rObjects/", projectID, "_voom_counts.rds"))
+
+varPart_pigs <- readRDS(paste0("../../rObjects/", projectID, "_varPart.rds"))
+varPart_pigs <- subset(varPart_pigs, select = -c(gene_id))
+colnames(varPart_pigs) <- c("condition", "duration", "age", "heart rate", "temp", "RIN", "Residuals")
+```
+
+variance
+```{r variance}
+var_pigs <- plotVarPart(sortCols(varPart_pigs), label.angle = 25) + 
+  theme(
+    axis.title.x = element_text(size = 8),
+    axis.text.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    legend.position = "none",
+    plot.title = element_text(size = 8), 
+    plot.margin = margin(5.5,5.5,-2,5.5)
+  ) +  ggtitle("Pig percentage of variance explained")
+```
+
+CCA
+```{r CCA}
+form <- ~ condition + heart_rate + age + duration + temp + RIN 
+sorted_info_pigs <- sorted_info_pigs %>%
+  dplyr::rename(heart_rate = end_heart_rate, temp = end_temp , duration = duration_min, age = age_days)
+C = canCorPairs(form, sorted_info_pigs)
+
+# produce plot
+CCA_pigs<- plotCorrMatrix_gg(C, title = "Pig Canonical Correlation Analysis (CCA)",
+                       reorder = FALSE, show_values = TRUE, value_digits = 2)
+
+# then add your theme changes
+CCA_pigs <- CCA_pigs + theme_bw() + theme(
+    axis.title.x = element_text(size = 8),
+    axis.text.x = element_text(size = 8, angle = 25, hjust=1),
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    legend.position = "none",
+    plot.title = element_text(size = 8)
+  )
+```
+
+PCA
+```{r PCA}
+voomCounts <- voom_counts_pigs$E
+# Setting the N of genes to use
+ntop = length(dge.filtered.norm_pigs$genes$gene_id)
+# Sorting by the coefficient of variance
+means <- rowMeans(voomCounts)
+Pvars <- rowVars(voomCounts, useNames = TRUE)
+cv2 <- Pvars / means ^ 2
+select <- order(cv2, decreasing = TRUE)[seq_len(min(ntop, length(cv2)))]
+highly_variable_exp <- ((voomCounts)[select,])
+dim(highly_variable_exp)
+
+# Running PCA
+pca_exp <- prcomp(t(highly_variable_exp), scale = F, center = T)
+dim1_10 <- data.frame(pca_exp$x[, 1:8])
+dim1_10$sample <- rownames(dim1_10)
+sorted_info_pigs$pig_id <- sorted_info_pigs$pig_id
+pcaWithMetadata <- merge(dim1_10, sorted_info_pigs, by = "sample", all = TRUE)
+
+pcaWithMetadata$group <- factor(pcaWithMetadata$group, levels = c("Saline", "Ecoli"))
+PCA_pigs <- ggplot(data = pcaWithMetadata, aes(x = PC1, y = PC2, shape = group, color = group)) +
+  geom_point(size = 2.5) +
+  geom_text(aes(label = group), hjust = -0.3, vjust = 1, size = 3) + # Added layer
+  theme_bw() +
+  theme(
+    axis.title.x = element_text(size = 8),
+    axis.text.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    legend.position = "none",
+    plot.title = element_text(size = 8)
+  ) + 
+  scale_color_manual(values = c("gray30", "brown4")) +
+  ggtitle("Pig PCA")
+```
+
+### Figure pigs combined
+```{r pigs_combined}
+figure_pigs <-
+  ggarrange(
+    pig_bar_plot,
+    PCA_pigs,
+    CCA_pigs,
+    var_pigs,
+    ncol = 2,
+    nrow = 2,
+    widths = c(0.75, 1, 1, 1.5), 
+   # heights = c(1,1.5),
+    labels = c("E","F", "G", "H"), 
+  font.label = list(size = 10)
+    )
+figure_pigs
+path <- paste0("../../manuscript_figures/Figure_pigs_count_pca")
+saveToPDF(paste0(path, ".pdf"), width = 7, height = 4.5)
+
+
+figure_human_and_pig <- ggarrange(
+    figure_human,
+    figure_pigs,
+    nrow = 2
+    )
+figure_human_and_pig
+path <- paste0("../../manuscript_figures/Figure_0_human_and_pig")
+saveToPDF(paste0(path, ".pdf"), width = 7, height = 9)
+
+```
+
+# Read in DEGs
+```{r}
+#human <- useMart("ensembl", dataset="hsapiens_gene_ensembl")
+#pig <- useMart("ensembl", dataset="sscrofa_gene_ensembl")
+
+DEGs_pig <- read.delim(paste0("../../results/pigs_kidney/DEGs/Ecoli_vs_Saline_q1.00_", tissue, ".txt", sep = ""))
+DEGs_human <- read.delim(paste0("../../results/human_kidney_both_sexes/DEGs/sepsis_vs_control_q1.00_", tissue, ".txt", sep = ""))
+
+# pig_orth <-
+#   gorth(
+#     query = DEGs_pig$gene_id,
+#     source_organism = "sscrofa",
+#     target_organism = "hsapiens",
+#     mthreshold = Inf,
+#     filter_na = TRUE,
+#     numeric_ns = "ENTREZGENE_ACC"
+#   )
+# pig_orth <- pig_orth %>%
+#   dplyr::rename(gene_id = input, gene_name = ortholog_name)
+# DEGs_pigs_orth <- merge(DEGs_pig, pig_orth, by = "gene_id")
+# DEGs_pigs_orth <- DEGs_pigs_orth %>%
+#   dplyr::rename(gene_name = gene_name.x)
+#
+```
+
+# UpSet
+```{r}
+# sex as a covariate
+pig_up <- subset(DEGs_pig, logFC > 0.25 & adj.P.Val <= 0.05)
+pig_down <- subset(DEGs_pig, logFC < -0.25 & adj.P.Val <= 0.05)
+human_up <- subset(DEGs_human, logFC > 0.25 & adj.P.Val <= 0.05)
+human_down <- subset(DEGs_human, logFC < -0.25 & adj.P.Val <= 0.05)
+
+list_input <- list("pig down-regulated" = pig_down$gene_name,
+                   "pig up-regulated" = pig_up$gene_name,
+                   "human down-regulated" = human_down$gene_name,
+                   "human up-regulated" = human_up$gene_name)
+data <- fromList(list_input)
+
+upset_gene <- upset(data, set_sizes = FALSE,
+      c('pig down-regulated',
+        'human down-regulated',
+        'pig up-regulated',
+        'human up-regulated'),
+      themes=upset_modify_themes(
+        list('intersections_matrix'=theme(text=element_text(size=10),
+              plot.margin = margin(0, 0, 0, 0, "cm")),
+          'overall_sizes' = theme(axis.text.x = element_text(size =10), 
+              plot.margin = margin(0, 0, 0, 0, "cm")))),
+  queries=list(
+    upset_query(set='pig down-regulated', fill='blue'),
+    upset_query(set='human down-regulated', fill='blue'),
+    upset_query(set='pig up-regulated', fill='red'),
+    upset_query(set='human up-regulated', fill='red')
+  ),
+  intersections = list(
+                       c('pig down-regulated', 'human down-regulated'), 
+                       'pig down-regulated',
+                       'human down-regulated', 
+                       c('pig up-regulated', 'human up-regulated'), 
+                       'pig up-regulated',
+                       'human up-regulated', 
+                       c('pig down-regulated', 'human up-regulated'),
+                       c('pig up-regulated', 'human down-regulated')
+  
+  ),
+  base_annotations=list(
+    'Intersection size'=(
+        intersection_size(
+        size=2,
+        text = list(size = 3),
+        text_mapping = aes(),
+        bar_number_threshold=3,  # show all numbers on top of bars
+        width=0.3,   # reduce width of the bars
+        mapping=aes(fill='bars_color')
+      )
+      + scale_fill_manual(values=c('grey'), guide='none')
+      + scale_y_continuous(expand=expansion(mult=c(0, 0.5)))
+      + theme(axis.text.y = element_text(size = 10),
+              axis.title.y = element_text(size = 10),
+          panel.grid.major=element_blank(),
+          panel.grid.minor=element_blank(),
+          plot.margin = margin(0, 0, 0, 0, "cm"), 
+          axis.line=element_line(colour='black')))),
+  matrix=intersection_matrix(
+      geom=geom_point(
+        shape='circle filled',
+        size=2,
+        stroke=0.45)) +
+        theme(axis.text.y = element_text(size = 10),
+              axis.title.y = element_text(size = 10), 
+              plot.margin = margin(0, 0, 0, 0, "cm")),
+    sort_sets=FALSE,
+  sort_intersections=FALSE)
+upset_gene
+
+# Binary table with colnames:
+write.table(
+  data,
+  "../../manuscript_figures/UpSet_list_binary_results_human_pig_DEGs.txt",
+  sep = "\t",
+  quote = FALSE
+)
+```
+
+# Metascape 
+### up
+```{r}
+# read in enrichment analysis results
+shared_up_enrich_results <-
+  read.csv("../../results/human_pig_metascape/human_pig_upregulated/Enrichment_heatmap/HeatmapSelectedGO.csv")
+shared_up_enrich_results$Description <-
+      gsub(
+       "positive regulation of response to external stimulus",
+        "pos reg of response to external stimulus",
+        shared_up_enrich_results$Description
+      )
+
+shared_up_enrich_results$Description <-
+      gsub(
+       "positive regulation of cytokine production",
+        "pos reg of cytokine production",
+        shared_up_enrich_results$Description
+      )
+
+shared_up_enrich_results$Description <-
+      gsub(
+       "regulation of protein modification process",
+        "reg of protein modification process",
+        shared_up_enrich_results$Description
+      )
+
+
+shared_up_enrich_results$Description <- factor(shared_up_enrich_results$Description, levels = shared_up_enrich_results$Description)
+shared_up_enrich_results <- reshape2::melt(shared_up_enrich_results)
+shared_up_enrich_results$variable <-
+      gsub(
+       "X_LogP_human_up",
+        "human",
+        shared_up_enrich_results$variable
+      )
+shared_up_enrich_results$variable <-
+      gsub(
+       "X_LogP_pig_up",
+        "pig",
+        shared_up_enrich_results$variable
+      )
+
+shared_up_enrich_results$variable <- factor(shared_up_enrich_results$variable, levels = c("human", "pig"))
+# plot - up
+shared_up_enric_heatmap <- 
+  ggplot(shared_up_enrich_results, aes(variable, fct_rev(Description), fill= value)) + 
+  geom_tile() +
+  scale_y_discrete(expand = c(0, 0)) +
+  labs(x = "", y = "") +
+  guides(fill = guide_legend(
+    size = 1,
+    title = expression(log[10] ~ 
+"(" ~ italic("p") ~ "-value)")
+  )) +
+  scale_fill_gradientn(
+    colours = c("darkred", "red", "lightcoral"),
+    values = scales::rescale(c(-100, -50, -30, -10, -5, -1)), 
+    breaks = c(-100, -50, -30, -10, -5, -1), 
+    guide = "legend",
+    limits = c(-100,-1),
+  ) +  theme_bw() +
+    theme(strip.text = element_text(size = 8), 
+          axis.text.y = element_text(size = 8),
+          axis.text.x = element_text(size = 8), # , angle=270
+          axis.title.x = element_text(size = 8), 
+          legend.text = element_text(size = 8),
+          legend.title = element_text(size = 8),
+          legend.margin=margin(0,0.5,0,0),
+          legend.box.margin=margin(-10,-2,-10,-7.5), 
+          plot.margin = margin(1, 0.05, 0.5, -0.1, "cm"), #t,r,b,l
+          plot.title = element_text(size = 8, margin = margin(.1,.1,.1,0), hjust = 2.25)) 
+# + ggtitle("Up-regulated enrichment summaries")
+
+addSmallLegend <- function(shared_up_enric_heatmap, pointSize = 3, textSize = 6, spaceLegend = .5) {
+    shared_up_enric_heatmap +
+        guides(shape = guide_legend(override.aes = list(size = pointSize)),
+               color = guide_legend(override.aes = list(size = pointSize))) +
+        theme(legend.title = element_text(size = textSize), 
+              legend.position = "right",
+              legend.text  = element_text(size = textSize),
+              legend.key.size = unit(spaceLegend, "lines"))
+}
+# Apply on original plot
+shared_up_enric_heatmap <- addSmallLegend(shared_up_enric_heatmap)
+shared_up_enric_heatmap
+```
+
+### down
+```{r down_heat}
+#--------
+# down
+shared_down_enrich_results <-
+  read.csv("../../results/human_pig_metascape/human_pig_downregulated/Enrichment_heatmap/HeatmapSelectedGO.csv")
+
+shared_down_enrich_results$Description <-
+      gsub(
+       "regulation of plasma membrane bounded cell projection organization",
+        "reg plasma membrane projection org",
+        shared_down_enrich_results$Description
+      )
+
+shared_down_enrich_results$Description <-
+      gsub(
+       "proteolysis involved in protein catabolic process",
+        "proteolysis in protein catabolic process",
+        shared_down_enrich_results$Description
+      )
+
+shared_down_enrich_results$Description <- factor(shared_down_enrich_results$Description, levels = shared_down_enrich_results$Description)
+shared_down_enrich_results <- reshape2::melt(shared_down_enrich_results)
+shared_down_enrich_results$variable <-
+      gsub(
+       "X_LogP_human_down",
+        "human",
+        shared_down_enrich_results$variable
+      )
+shared_down_enrich_results$variable <-
+      gsub(
+       "X_LogP_pig_down",
+        "pig",
+        shared_down_enrich_results$variable
+      )
+
+shared_down_enrich_results$variable <- factor(shared_down_enrich_results$variable, levels = c("human", "pig"))
+# plot - down
+shared_down_enric_heatmap <- 
+  ggplot(shared_down_enrich_results, aes(variable, fct_rev(Description), fill= value)) + 
+  geom_tile() +
+  scale_y_discrete(expand = c(0, 0)) +
+  labs(x = "", y = "") +
+  guides(fill = guide_legend(
+    size = 1,
+    title = expression(log[10] ~ 
+"(" ~ italic("p") ~ "-value)")
+  )) +
+  scale_fill_gradientn(
+    colours = c("midnightblue", "blue", "cadetblue1"),
+    values = scales::rescale(c(-30, -10, -5, -1)), 
+    breaks = c( -30, -10, -5, -1), 
+    guide = "legend",
+    limits = c(-30,-1)) +  theme_bw() +
+    theme(strip.text = element_text(size = 8), 
+          axis.text.y = element_text(size = 8),
+          axis.text.x = element_text(size = 8), # , angle=270
+          axis.title.x = element_text(size = 8), 
+          legend.text = element_text(size = 8),
+          legend.title = element_text(size = 8),
+          legend.margin=margin(0,0.5,0,0),
+          legend.box.margin=margin(-10,-2,-10,-7.5), 
+          plot.margin = margin(0.75, 0.2, 0.025, 0.025, "cm"), #t,r,b,l
+          plot.title = element_text(size = 8, margin = margin(.1,.1,.1,0), hjust = 1.95))
+# + ggtitle("Down-regulated enrichment summaries")
+
+addSmallLegend <- function(shared_down_enric_heatmap, pointSize = 3, textSize = 6, spaceLegend = .5) {
+    shared_down_enric_heatmap +
+        guides(shape = guide_legend(override.aes = list(size = pointSize)),
+               color = guide_legend(override.aes = list(size = pointSize))) +
+        theme(legend.title = element_text(size = textSize), 
+              legend.position = "right",
+              legend.text  = element_text(size = textSize),
+              legend.key.size = unit(spaceLegend, "lines"))
+}
+# Apply on original plot
+shared_down_enric_heatmap <- addSmallLegend(shared_down_enric_heatmap)
+shared_down_enric_heatmap
+```
+# GO opposites
+```{r}
+# Metascape Enrichment 
+#read in enrichment analysis results
+up_enrich_results <-
+  read_excel(
+    paste0(
+      "../../results/human_pig_metascape/up_human_down_pig/metascape_result.xlsx"
+    ), sheet = 2
+  )
+
+down_enrich_results <-
+  read_excel(
+    paste0(
+      "../../results/human_pig_metascape/down_human_up_pig/metascape_result.xlsx"
+    ), sheet = 2
+  )
+
+# select the GO term IDs we want to show in the plot
+GO_ID_up <-
+  c(
+    "1_Summary",
+    "2_Summary",
+    "3_Summary",
+    "4_Summary",
+    "5_Summary",
+    "6_Summary",
+    "7_Summary",
+    "8_Summary",
+    "9_Summary", 
+    "10_Summary",
+    "11_Summary",
+    "12_Summary",
+    "13_Summary",
+    "14_Summary",
+    "15_Summary",
+    "16_Summary",
+    "17_Summary",
+    "18_Summary",
+    "19_Summary", 
+    "20_Summary"
+  )
+GO_ID_down <- c(
+    "1_Summary",
+    "2_Summary",
+    "3_Summary",
+    "4_Summary",
+    "5_Summary",
+    "6_Summary",
+    "7_Summary",
+    "8_Summary",
+    "9_Summary", 
+    "10_Summary",
+    "11_Summary",
+    "12_Summary",
+    "13_Summary",
+    "14_Summary",
+    "15_Summary",
+    "16_Summary",
+    "17_Summary",
+    "18_Summary",
+    "19_Summary", 
+    "20_Summary"
+)
+
+up_enrich_results_subset <-
+  up_enrich_results[up_enrich_results$GroupID %in% GO_ID_up, ]
+up_enrich_results_subset$Cluster <- c("upregulated")
+up_enrich_results_subset$Description <-
+  factor(up_enrich_results_subset$Description,
+         levels = up_enrich_results_subset$Description)
+up_enrich_results_subset$Description <-
+  fct_rev(up_enrich_results_subset$Description)
+
+down_enrich_results_subset <-
+  down_enrich_results[down_enrich_results$GroupID %in% GO_ID_down, ]
+down_enrich_results_subset$Cluster <- c("downregulated")
+down_enrich_results_subset$Description <-
+  factor(down_enrich_results_subset$Description,
+         levels = down_enrich_results_subset$Description)
+down_enrich_results_subset$Description <-
+  fct_rev(down_enrich_results_subset$Description)
+
+# get the number of genes in each summary
+up_gene_count <-
+  strsplit(as.character(up_enrich_results_subset$InTerm_InList),
+           "/",
+           fixed = T)
+up_gene_count_df <-
+  data.frame(matrix(
+    unlist(up_gene_count),
+    nrow = length(up_gene_count),
+    byrow = TRUE
+  ), stringsAsFactors = FALSE)
+up_enrich_results_subset$InTerm <- as.numeric(up_gene_count_df$X1)
+up_enrich_results_subset$InList <- as.numeric(up_gene_count_df$X2)
+
+down_gene_count <-
+  strsplit(as.character(down_enrich_results_subset$InTerm_InList),
+           "/",
+           fixed = T)
+down_gene_count_df <-
+  data.frame(matrix(
+    unlist(down_gene_count),
+    nrow = length(down_gene_count),
+    byrow = TRUE
+  ), stringsAsFactors = FALSE)
+down_enrich_results_subset$InTerm <- as.numeric(down_gene_count_df$X1)
+down_enrich_results_subset$InList <- as.numeric(down_gene_count_df$X2)
+
+# combine together
+up_and_down_enrich_results_subset <- rbind(up_enrich_results_subset, down_enrich_results_subset)
+
+ up_and_down_enrich_results_subset$Description <-
+       gsub(
+         "negative regulation of double-strand break repair via homologous recombination",
+         "neg reg double-strand break repair",
+         up_and_down_enrich_results_subset$Description
+       )
+
+  up_and_down_enrich_results_subset$Description <-
+       gsub(
+         "regulation of ubiquitin-dependent protein catabolic process",
+         "ubiquitin-dependent protein catabolic process",
+         up_and_down_enrich_results_subset$Description
+       )
+
+   up_and_down_enrich_results_subset$Description <-
+       gsub(
+         "positive regulation of DNA-binding transcription factor activity",
+         "DNA-binding transcription factor activity",
+         up_and_down_enrich_results_subset$Description
+       )
+ 
+   up_and_down_enrich_results_subset$Description <-
+       gsub(
+         "regulation of telomere maintenance via telomerase",
+         "reg telomere maintenance via telomerase",
+         up_and_down_enrich_results_subset$Description
+       )
+ 
+      up_and_down_enrich_results_subset$Description <-
+       gsub(
+         up_and_down_enrich_results_subset$Description[8],
+         "reg protein containing complex assembly",
+         up_and_down_enrich_results_subset$Description
+       )
+
+up_and_down_enrich_results_subset$Description <-
+  factor(up_and_down_enrich_results_subset$Description, levels = unique(up_and_down_enrich_results_subset$Description)) 
+
+up_and_down_enrich_results_subset$Description <- fct_rev(up_and_down_enrich_results_subset$Description)
+
+remove(
+  down_enrich_results,
+  down_gene_count,
+  down_gene_count_df,
+  up_enrich_results,
+  up_gene_count,
+  up_gene_count_df
+)
+
+up_and_down_enrich_results_subset$Cluster
+up_and_down_enrich_plot <-
+  ggplot(data = up_and_down_enrich_results_subset, aes(x = InTerm, y = Description)) +
+  ggplot2::facet_grid(Cluster ~ ., scales = "free") +
+  geom_bar(stat = "identity", aes(fill = LogP), width = .7, position = position_dodge(width = .2)) +
+  theme_bw() +
+ # ggtitle(paste0(tissue," enrichment summaries")) +
+  labs(x = "Gene count", y = NULL) +
+  guides(fill = guide_legend(title = expression(log[10] ~ "(" ~ italic("p") ~ "-value)"))) +
+  scale_fill_gradientn(
+    colours = c(colors=natparks.pals("WindCave")),
+    guide = "legend",
+    limits = c(-8,-1)
+  ) +
+    theme(strip.text = element_text(size = 8), 
+          axis.text.y = element_text(size = 8),
+          axis.text.x = element_text(size = 8), 
+          axis.title.x = element_text(size = 8), 
+          legend.text = element_text(size = 8),
+          legend.title = element_text(size = 8),
+          legend.margin=margin(0,0.5,0,0),
+          legend.box.margin=margin(-10,-2,-10,-7.5), 
+          plot.margin = margin(0.5, 0.025, 0.25, 0.025, "cm"), 
+          plot.title = element_text(size = 8, hjust = -3.25, vjust=0, margin = margin(0,0,0,0)))
+up_and_down_enrich_plot
+
+addSmallLegend <- function(myPlot, pointSize = 3, textSize = 6, spaceLegend = .5) {
+    myPlot +
+        guides(shape = guide_legend(override.aes = list(size = pointSize)),
+               color = guide_legend(override.aes = list(size = pointSize))) +
+        theme(legend.title = element_text(size = textSize), 
+              legend.text  = element_text(size = textSize),
+              legend.key.size = unit(spaceLegend, "lines"))
+}
+
+# Apply on original plot
+up_and_down_enrich_plot <- addSmallLegend(up_and_down_enrich_plot)
+
+# Title mapping
+cluster_labels <- c(
+  "upregulated"   = "up human & down pig",
+  "downregulated" = "down human & up pig"
+)
+
+# Split dataset
+df_up   <- subset(up_and_down_enrich_results_subset, Cluster == "upregulated")
+df_down <- subset(up_and_down_enrich_results_subset, Cluster == "downregulated")
+
+# ---- Shared theme components ----
+common_theme <- theme_bw() +
+  theme(
+    strip.text = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    axis.text.x = element_text(size = 8),
+    axis.title.x = element_text(size = 8),
+    legend.text = element_text(size = 8),
+    legend.title = element_text(size = 8),
+    legend.margin = margin(0, 0.5, 0, 0),
+    legend.box.margin = margin(-10, -2, -10, -7.5),
+    plot.margin = margin(0.1, 0.2, 0, 0.2, "cm"),
+    plot.title = element_text(size = 8, vjust = -2)
+  )
+
+fill_scale <- scale_fill_gradientn(
+  colours = natparks.pals("WindCave"),
+  guide = "legend",
+  limits = c(-8, -1)
+)
+
+legend_guide <- guides(
+  fill = guide_legend(title = expression(log[10] ~ "(" ~ italic("p") ~ "-value)"))
+)
+
+# ---- Individual Plots ----
+
+plot_up <-
+  ggplot(df_up, aes(x = InTerm, y = Description)) +
+  geom_bar(stat = "identity", aes(fill = LogP), width = 0.7,
+           position = position_dodge(width = 0.2)) +
+  labs(
+    title = cluster_labels["upregulated"],
+    x = "Gene count", y = NULL
+  ) +
+  fill_scale +
+  legend_guide +
+  common_theme
+
+plot_down <-
+  ggplot(df_down, aes(x = InTerm, y = Description)) +
+  geom_bar(stat = "identity", aes(fill = LogP), width = 0.7,
+           position = position_dodge(width = 0.2)) +
+  labs(
+    title = cluster_labels["downregulated"],
+    x = "Gene count", y = NULL
+  ) +
+  fill_scale +
+  legend_guide +
+  common_theme 
+plot_down <- addSmallLegend(plot_down)  + theme(legend.position = "none")+
+  ggtitle("")
+plot_up <- addSmallLegend(plot_up) + theme(legend.position = "right", 
+                                           axis.title.x = element_blank())+
+  ggtitle("")
+
+# ---- Combine with unequal heights ----
+combined_plot <- plot_up / plot_down + plot_layout(heights = c(1, 2))
+combined_plot
+```
+
+# Plot combined UpSet & GOs
+```{r}
+figure_GO1 <-
+  ggarrange(
+    upset_gene,
+    shared_down_enric_heatmap,
+    ncol = 2,
+    widths = c(0.75, 1), 
+    labels = c("A","B"), 
+  font.label = list(size = 10)
+    )
+
+combined_plot <-
+  ggarrange(
+    plot_up,
+    NULL, 
+    plot_down, 
+    nrow= 3,
+    heights = c(1,0.15, 2)
+    ) 
+
+figure_GO2 <-
+  ggarrange(
+    shared_up_enric_heatmap,
+    combined_plot, 
+    ncol = 2,
+    widths = c(1,1), 
+    labels = c("C", "D"), 
+  font.label = list(size = 10)
+    )
+
+figure_GO_combined <- ggarrange(
+    figure_GO1,
+    figure_GO2, 
+    nrow = 2, 
+    heights = c(1,1.35)
+    )
+figure_GO_combined
+path <- paste0("../../manuscript_figures/Figure_3_UpSet_GOs")
+saveToPDF(paste0(path, ".pdf"), width = 7, height = 7.25)
+```
+
+
+
+# Correlation
+```{r}
+DEGs_human_and_pig <-
+   merge(DEGs_human, DEGs_pig, by = "gene_name")
+
+df <- subset(DEGs_human_and_pig, gene_name %in% rownames(data))
+ggplot(DEGs_human_and_pig, aes(x=logFC.x, y=logFC.y)) +
+  geom_point(alpha=0.6) +
+  geom_smooth(method="lm") +
+  theme_minimal() +
+  xlab("Human log2FC (sepsis vs control)") + ylab("Pig log2FC (E. coli vs saline)")
+cor(DEGs_human_and_pig$logFC.x, DEGs_human_and_pig$logFC.y, use="pairwise.complete.obs")
+
+DEGs_human_and_pig <- DEGs_human_and_pig[, c(1,9,15,23,29)]
+colnames(DEGs_human_and_pig) = c("gene_name",  "human_logFC", "human_adj.P.Val", "pig_logFC", "pig_adj.P.Val")
+
+corr_plot <- ggplot(data = DEGs_human_and_pig, 
+  aes(x = human_logFC, y = pig_logFC, text = paste(gene_name))) +
+  annotate(
+    "rect",
+    xmin = 0,
+    xmax = 3,
+    ymin = 8,
+    ymax = 0,
+    fill = "lightpink3",
+    alpha = .5
+  ) +  annotate(
+    "rect",
+    xmin =-3,
+    xmax = 0,
+    ymin = 0,
+    ymax = -8,
+    fill = "cadetblue3",
+    alpha = .5) +
+  geom_abline(color = "gray40")  +  geom_point(size = 1) 
+
+
+sp <- ggscatter(DEGs_human_and_pig, x = "logFC.x", y = "logFC.y",
+                add = "reg.line",  # Add regressin line
+                add.params = list(color = "blue", fill = "lightgray"), 
+                conf.int = TRUE)
+# Add correlation coefficient
+sp + stat_cor(method = "pearson", label.x = -2, label.y = 4)
+```

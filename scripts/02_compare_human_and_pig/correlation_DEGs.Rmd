@@ -1,0 +1,340 @@
+---
+title: "Correlation DEGs"
+author: "Kimberly Olney, PhD"
+date: "October 20th 2025"
+output:
+  pdf_document: default
+params:
+  project: sepsis
+---
+
+# Set up working enivornment
+```{r setup, include=FALSE}
+knitr::opts_knit$set(root.dir = ".")
+getwd()
+```
+
+```{r libraries, message=FALSE, warning=FALSE}
+source("/tgen_labs/jfryer/kolney/sepsis_human/scripts/file_paths_and_colours_pigs.R")
+rm(kidney_metadata, metadata_extra)
+metadata_pigs <- metadata
+metadata_pigs$group <- factor(metadata_pigs$group, levels = c("Saline", "Ecoli"))
+
+source("/tgen_labs/jfryer/kolney/sepsis_human/scripts/file_paths_and_colours_human.R")
+tissue <- "Kidney"
+metadata <- subset(metadata, tissue == "Kidney")
+metadata_human <- metadata
+rm(metadata)
+projectID <- "human_and_pig"
+library(readxl)
+```
+
+
+# Sample Count
+### human
+```{r human}
+human_bar_plot <- ggplot(metadata_human, aes(group, after_stat(count), fill = group)) +
+  geom_bar() +
+  theme_bw() +
+  xlab("Disease group") +
+  ggtitle("Human bulk RNAseq sample count") +
+  geom_text(
+    stat = 'count',
+    aes(label = after_stat(count)),
+    vjust = 1.6,
+    color = "white",
+    size = 3.5
+  ) +
+  scale_fill_manual(values = color_disease_human) +
+  scale_y_continuous(limits = c(0, 18)) +
+  theme(legend.position = "none")
+human_bar_plot
+```
+### pig
+```{r pig}
+pig_bar_plot <- ggplot(metadata_pigs, aes(group, after_stat(count), fill = group)) +
+  geom_bar() +
+  theme_bw() +
+  xlab("Disease group") +
+  ggtitle("Pig bulk RNAseq sample count") +
+  geom_text(
+    stat = 'count',
+    aes(label = after_stat(count)),
+    vjust = 1.6,
+    color = "white",
+    size = 3.5
+  ) +
+  scale_fill_manual(values = color_disease_pig) +
+  scale_y_continuous(limits = c(0, 18)) +
+  theme(legend.position = "none")
+pig_bar_plot
+```
+
+# PCA
+### human
+```{r}
+voomCounts <- v$E
+ntop = length(dge.filtered.norm$genes$gene_id)
+means <- rowMeans(voomCounts)
+Pvars <- rowVars(voomCounts, useNames = TRUE)
+cv2 <- Pvars / means ^ 2
+select <- order(cv2, decreasing = TRUE)[seq_len(min(ntop, length(cv2)))]
+highly_variable_exp <- ((voomCounts)[select,])
+pca_exp <- prcomp(t(highly_variable_exp), scale = F, center = T)
+dim1_10 <- data.frame(pca_exp$x[, 1:8])
+dim1_10$sample <- rownames(dim1_10)
+sorted_info$sample <- sorted_info$Sample_ID
+pcaWithMetadata <- merge(dim1_10, sorted_info, by = "sample", all = TRUE)
+ggplot(data = pcaWithMetadata, aes(x = PC1, y = PC2, shape = sex, color = group)) +
+  geom_point(size = 2.5) +
+  geom_text(aes(label = Sample_ID), hjust = -0.1, vjust = 0.5, size = 3) + # Added layer
+  theme_bw() 
+saveToPDF(paste0("../../results/", results_folder, "/PCA/PCA_dim1&2.pdf"), width = 8, height = 5)
+```
+
+```
+# Create sub directories
+```{r}
+base_path <- "../../results"
+results_folder <- "human_kidney_both_sexes" #
+dir_to_create <- c("counts", "DEGs", "JSD", "library", "MDS", "variance", "volcano", "voom", "PCA", "clinical")
+
+full_paths <- file.path(base_path, results_folder, dir_to_create)
+sapply(full_paths, function(d) {
+  if (!dir.exists(d)) {
+    dir.create(d, recursive = TRUE)
+    cat(paste("Created directory:", d, "\n"))
+  } else {
+    cat(paste("Directory already exists:", d, "\n"))
+  }
+})
+list.dirs(file.path(base_path, results_folder), full.names = FALSE, recursive = FALSE)
+```
+
+# Read in DEG tables
+```{r read_DEG_tables}
+
+```
+
+
+# Correlation 
+# GO profiler to get human gene names for pig data 
+```{r correlation_log2FC}
+# Correlation - significant genes
+
+ADandLBD <-
+  merge(ADvsControl,
+        LBDvsControl,
+        by = "gene_name",
+        all = T)
+ADandLBD <- ADandLBD[c(1,2,6,7,8:15,22:29)]
+colnames(ADandLBD) = c("gene_name", "chr", "gene_id","gene_type", "AD_logFC", "AD_CI.L", "AD_CI.R", "AD_AveExpr", "AD_t","AD_P.val", "AD_adj.P.Val", "AD_B", "LBD_logFC", "LBD_CI.L", "LBD_CI.R", "LBD_AveExpr", "LBD_t","LBD_P.val", "LBD_adj.P.Val", "LBD_B")
+
+# significant in either 
+ADandLBD <- subset(ADandLBD, (AD_logFC < -.25 & AD_adj.P.Val < 0.05) | (AD_logFC > 0.25 & AD_adj.P.Val < 0.05) |
+                     (LBD_logFC < -.25 & LBD_adj.P.Val < 0.05) | (LBD_logFC > 0.25 & LBD_adj.P.Val < 0.05) )
+ADandLBD_goi <- subset(ADandLBD, 
+                        (AD_logFC < -0.5 & LBD_logFC < -0.5) | # down in both
+                          (AD_logFC > .5 & LBD_logFC > 0.5) | # up in both
+                          (AD_logFC > .5 & LBD_logFC < 0) | # up in AD, down in LBD
+                          (AD_logFC < -.5 & LBD_logFC > 0)) # up in LBD, down in AD
+ROS1_goi <- subset(ADandLBD, gene_name == "ROS1")
+more_goi <- subset(ADandLBD, (AD_logFC > .15 & LBD_logFC < 0) | (AD_logFC < -.15 & LBD_logFC > 0.15)) 
+more_goi <- more_goi[!(more_goi$gene_name %in% ADandLBD_goi$gene_name),]
+
+sig_AD <- subset(ADandLBD, AD_adj.P.Val < 0.05 & LBD_adj.P.Val > 0.05)
+sig_LBD <- subset(ADandLBD, LBD_adj.P.Val < 0.05 &  AD_adj.P.Val > 0.05)
+sig_both <- subset(ADandLBD, AD_adj.P.Val < 0.05 & LBD_adj.P.Val < 0.05)
+
+ADandLBD_corr_plot_sig <- ggplot(data = ADandLBD, 
+  aes(x = AD_logFC, y = LBD_logFC, text = paste(gene_name))) +
+  annotate(
+    "rect",
+    xmin = 0,
+    xmax = 1.75,
+    ymin = 1.75,
+    ymax = 0,
+    fill = "lightpink3",
+    alpha = .1
+  ) +  annotate(
+    "rect",
+    xmin = 0,
+    xmax = -1.75,
+    ymin = 0,
+    ymax = -1.75,
+    fill = "cadetblue3",
+    alpha = .1) +
+ # geom_abline(color = "gray40") +
+  geom_abline(color = "gray80", linetype = 2) +
+  geom_point(data = sig_AD, color=AD_color, shape=AD_shape) + 
+  geom_point(data = sig_LBD, color=LBD_color, shape=LBD_shape) + 
+  geom_point(data = sig_both, color="black", shape=25) + 
+ geom_text_repel(
+   data = sig_both, 
+   aes(
+     x = AD_logFC, 
+     y = LBD_logFC,
+     label = gene_name
+   ),
+   color = "black",
+   fontface = "italic",
+   size = 2, 
+   max.overlaps = getOption("ggrepel.max.overlaps", default = 8)
+ ) +
+   geom_text_repel(
+     data = sig_LBD, 
+     aes(
+       x = AD_logFC, 
+       y = LBD_logFC,
+       label = gene_name
+     ),
+     color = LBD_color,
+     fontface = "italic",
+     size = 2, 
+     max.overlaps = getOption("ggrepel.max.overlaps", default = 8)
+   ) +
+   geom_text_repel(
+     data = sig_AD, 
+     aes(
+       x = AD_logFC, 
+       y = LBD_logFC,
+       label = gene_name
+     ),
+     color = AD_color,
+     fontface = "italic",
+     size = 2, 
+     max.overlaps = getOption("ggrepel.max.overlaps", default = 8)
+   ) +
+  theme_bw() +
+    theme(strip.text = element_text(size = 8), 
+          axis.text.y = element_text(size = 8),
+          axis.title.y = element_text(size = 8),
+          axis.text.x = element_text(size = 8), 
+          axis.title.x = element_text(size = 8), 
+          plot.margin = margin(0.1, 0.3, 0.2, 0.4, "cm"), #t,r,b,l
+          plot.title = element_text(size = 8, margin = margin(.1,.1,.1,0), hjust = 0)) +
+  labs(
+    title = "Differentially expressed genes, q < 0.05 & absolute log2FC > 0.25
+Shared and unique between LBD and AD",
+    x = expression(paste("  ", log[2](AD/Control))),
+    y = expression(paste("  ", log[2](LBD/Control))))+
+  scale_y_continuous(breaks = seq(-1.5, 1.5, by = .5), 
+                     limits = c(-1.75, 1.75), expand = c(0,0)) +
+  scale_x_continuous(breaks = seq(-1.5, 1.5, by = .5), 
+                     limits = c(-1.75, 1.75), expand = c(0,0))
+ADandLBD_corr_plot_sig
+
+
+
+SOWAHD
+```
+# Only DEGs
+```{r}
+# Scatter plot with correlation coefficient
+sp <- ggscatter(ADandLBD, x = "AD_logFC", y = "LBD_logFC",
+                add = "reg.line",  # Add regressin line
+                add.params = list(color = "blue", fill = "lightgray"), 
+                conf.int = TRUE)
+# Add correlation coefficient
+sp + stat_cor(method = "pearson", label.x = -.5, label.y = 1)
+
+path <- paste0("../../../results/star/correlation/LBD_and_AD_significant_in_both")
+saveToPDF(paste0(path, ".pdf"), width = 8.5, height = 8.5)
+```
+# Correlation - all genes 
+```{r}
+ADandLBD <-
+  merge(ADvsControl,
+        LBDvsControl,
+        by = "gene_name",
+        all = T)
+ADandLBD <- ADandLBD[c(1,2,6,7,8:15,22:29)]
+colnames(ADandLBD) = c("gene_name", "chr", "gene_id","gene_type", "AD_logFC", "AD_CI.L", "AD_CI.R", "AD_AveExpr", "AD_t","AD_P.val", "AD_adj.P.Val", "AD_B", "LBD_logFC", "LBD_CI.L", "LBD_CI.R", "LBD_AveExpr", "LBD_t","LBD_P.val", "LBD_adj.P.Val", "LBD_B")
+
+ADandLBD_goi <- subset(ADandLBD, 
+                        (AD_logFC < -0.5 & LBD_logFC < -0.5) | # down in both
+                          (AD_logFC > .5 & LBD_logFC > 0.5) | # up in both
+                          (AD_logFC > .5 & LBD_logFC < 0) | # up in AD, down in LBD
+                          (AD_logFC < -.5 & LBD_logFC > 0)) # up in LBD, down in AD
+ROS1_goi <- subset(ADandLBD, gene_name == "ROS1")
+more_goi <- subset(ADandLBD, AD_logFC > .75 & LBD_logFC < -0.5) 
+
+ADandLBD_corr_plot <- ggplot(data = ADandLBD, 
+  aes(x = AD_logFC, y = LBD_logFC, text = paste(gene_name))) +
+  annotate(
+    "rect",
+    xmin = 0,
+    xmax = 1.75,
+    ymin = 1.75,
+    ymax = 0,
+    fill = "lightpink3",
+    alpha = .5
+  ) +  annotate(
+    "rect",
+    xmin = 0,
+    xmax = -1.75,
+    ymin = 0,
+    ymax = -1.75,
+    fill = "cadetblue3",
+    alpha = .5) +
+  geom_abline(color = "gray40") +
+ geom_text_repel(
+   data = ADandLBD_goi, 
+   aes(
+     x = AD_logFC, 
+     y = LBD_logFC,
+     label = gene_name
+   ),
+   color = "black",
+   fontface = "italic",
+   size = 2, 
+   max.overlaps = getOption("ggrepel.max.overlaps", default = 8)
+ ) +
+   geom_text_repel(
+     data = more_goi, 
+     aes(
+       x = AD_logFC, 
+       y = LBD_logFC,
+       label = gene_name
+     ),
+     color = "black",
+     nudge_x = .15,
+     nudge_y = -.15,
+     fontface = "italic",
+     size = 2, 
+     max.overlaps = getOption("ggrepel.max.overlaps", default = 8)
+   ) +
+  geom_point(size = 1) + 
+  theme_bw() +
+  theme_bw() +
+    theme(strip.text = element_text(size = 8), 
+          axis.title.y = element_text(size = 8),
+          axis.text.y = element_text(size = 8),
+          axis.text.x = element_text(size = 8), 
+          axis.title.x = element_text(size = 8), 
+          plot.margin = margin(0.1, 0.3, 0.2, 0.2, "cm"), #t,r,b,l
+          plot.title = element_text(size = 8, margin = margin(.1,.1,.1,0), hjust = 0)) +
+  labs(
+    title = "All expressed genes
+Shared between LBD and AD",
+    x = expression(paste("  ", log[2](AD/control))),
+    y = expression(paste("  ", log[2](LBD/control))))+
+  scale_y_continuous(breaks = seq(-1.5, 1.5, by = .5), 
+                     limits = c(-1.75, 1.75), expand = c(0,0)) +
+  scale_x_continuous(breaks = seq(-1.5, 1.5, by = .5), 
+                     limits = c(-1.75, 1.75), expand = c(0,0))
+ADandLBD_corr_plot
+```
+# All genes 
+```{r}
+# Scatter plot with correlation coefficient
+sp <- ggscatter(ADandLBD, x = "AD_logFC", y = "LBD_logFC",
+                add = "reg.line",  # Add regressin line
+                add.params = list(color = "blue", fill = "lightgray"), 
+                conf.int = TRUE)
+# Add correlation coefficient
+sp + stat_cor(method = "pearson", label.x = -.5, label.y = 1)
+
+path <- paste0("../../../results/star/correlation/LBD_and_AD_all_genes")
+saveTo
+```
